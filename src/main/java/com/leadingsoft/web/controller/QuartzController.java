@@ -70,4 +70,20 @@ public class QuartzController {
 		quartzService.delete(quartzId);
 		return ResultDto.success();
 	}
+
+	@RequestMapping("inseart.shtml")
+	public String inseart(KQuartz kQuartz, HttpServletRequest request){
+		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
+		if (quartzService.check(kQuartz.getQuartzCron())){
+			try {
+				quartzService.insert(kQuartz, kUser.getuId());
+				return ResultDto.success();
+			}catch (SQLException e) {
+				e.printStackTrace();
+				return ResultDto.fail("添加定时策略失败");
+			}
+		}else{
+			return ResultDto.fail("该定时策略已存在");
+		}
+	}
 }

@@ -81,6 +81,9 @@
                             <li>
                                 <a class="J_menuItem" href="view/user/listUI.shtml">&nbsp;用户列表</a>
                             </li>
+                            <li>
+                                <a class="J_menuItem" href="view/quartz/listUI.shtml">&nbsp;定时策略</a>
+                            </li>
                         </ul>
                     </li>                       
                 </ul>

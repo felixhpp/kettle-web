@@ -37,7 +37,7 @@
         </div>
         <div class="ibox-content">
             <div class="col-sm-6 float-left">
-                <a href="/view/quartz/addUI.shtml" class="btn btn-w-m btn-info" type="button">
+                <a href="view/quartz/addUI.shtml" class="btn btn-w-m btn-info" type="button">
                     <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增定时策略
                 </a>
             </div>

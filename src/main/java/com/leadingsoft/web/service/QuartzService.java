@@ -3,6 +3,7 @@ package com.leadingsoft.web.service;
 import com.leadingsoft.core.dto.BootTablePage;
 import com.leadingsoft.core.mapper.KQuartzDao;
 import com.leadingsoft.core.model.KQuartz;
+import com.leadingsoft.core.model.KUser;
 import org.beetl.sql.core.DSTransactionManager;
 import org.pentaho.di.core.exception.KettleException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class QuartzService {
@@ -114,5 +115,24 @@ public class QuartzService {
 		kQuartz.setEditTime(new Date());
 		kQuartz.setEditUser(uId);
 		kQuartzDao.updateTemplateById(kQuartz);
+	}
+
+	/**
+	 * @Title check
+	 * @Description 检查定时策略是否已存在
+	 * @param quartzCron 定时策略表达式
+	 * @ruturn boolean
+	 */
+	public boolean check(String quartzCron){
+		KQuartz template = new KQuartz();
+		template.setDelFlag(1);
+		template.setQuartzCron(quartzCron);
+
+		List<KQuartz> kQuartzList = kQuartzDao.template(template);
+		if (null != kQuartzList && kQuartzList.size() > 0){
+			return false;
+		}else {
+			return true;
+		}
 	}
 }
