@@ -36,6 +36,11 @@ public class UserController {
 		return ResultDto.success();
 	}
 
+	@RequestMapping("getUser.shtml")
+	public String getUser(Integer uId){
+		return ResultDto.success(userService.getKUser(uId));
+	}
+
 	@RequestMapping("insert.shtml")
 	public String insert(KUser kUser, HttpServletRequest request){
 		KUser addkUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
@@ -63,4 +68,6 @@ public class UserController {
 			return ResultDto.success(e.toString());
 		}
 	}
+
+
 }

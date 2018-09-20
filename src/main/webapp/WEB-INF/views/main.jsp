@@ -74,7 +74,7 @@
 		            <div class="ibox-content">
 		            	<div class="right">	
 			            	<button onclick="searchTrans()" class="btn btn-w-m btn-info" type="button">
-			            		<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;刷新列表
+			            		<i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;刷新列表
 		            		</button>
 		            	</div>
 		                <table id="transMonitorList" data-toggle="table"
@@ -109,7 +109,7 @@
 		            <div class="ibox-content">
 		            	<div class="right">	
 			            	<button onclick="searchJobs()" class="btn btn-w-m btn-info" type="button">
-			            		<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;刷新列表
+			            		<i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;刷新列表
 		            		</button>
 		            	</div>
 		                <table id="jobMonitorList" data-toggle="table"

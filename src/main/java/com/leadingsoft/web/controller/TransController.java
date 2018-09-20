@@ -1,15 +1,5 @@
 package com.leadingsoft.web.controller;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.leadingsoft.common.toolkit.Constant;
 import com.leadingsoft.core.dto.BootTablePage;
 import com.leadingsoft.core.dto.ResultDto;
@@ -17,6 +7,14 @@ import com.leadingsoft.core.model.KTrans;
 import com.leadingsoft.core.model.KUser;
 import com.leadingsoft.web.service.TransService;
 import com.leadingsoft.web.utils.JsonUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.sql.SQLException;
 
 @RestController
 @RequestMapping("/trans/")
@@ -94,5 +92,11 @@ public class TransController {
 	public String stop(Integer transId){
 		transService.stop(transId);		
 		return ResultDto.success();	
+	}
+
+	@RequestMapping("delete.shtml")
+	public String delete(Integer transId) {
+		transService.delete(transId);
+		return ResultDto.success();
 	}
 }

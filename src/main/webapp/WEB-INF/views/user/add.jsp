@@ -57,7 +57,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">电话号码：</label>
                     <div class="col-sm-7">
-                        <input id="uPhone" readonly name="uPhone" type="text" placeholder="请输入电话号码" class="form-control" aria-required="false">
+                        <input id="uPhone" name="uPhone" type="text" placeholder="请输入电话号码" class="form-control" aria-required="false">
                     </div>
                 </div>
                 <div class="form-group">

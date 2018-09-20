@@ -73,6 +73,17 @@ public class UserService {
 		bootTablePage.setTotal(allCount);
 		return bootTablePage;
 	}
+
+	/**
+	 * @Title getKUser
+	 * @Description 根据uId获取用户
+	 * @param uId 用户id
+	 * @throws
+	 * @ruturn 用户记录
+	 */
+	public KUser getKUser(Integer uId){
+		return kUserDao.single(uId);
+	}
 	
 	/**
 	 * @Title delete

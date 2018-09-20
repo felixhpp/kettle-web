@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<base href="<%=basePath %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>用户列表</title>
+    <title>用户设置</title>
     <link href="static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
     <link href="static/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
@@ -73,7 +73,7 @@
 	    };
 	    window.actionEvents = {				
 	    		'click #edit' : function(e, value, row, index) {
-	    			var userId = row.userId;
+	    			var userId = row.uId;
 	    			location.href = "view/user/editUI.shtml?userId=" + userId;
 	    		},
 	    		'click #delete' : function(e, value, row, index) {

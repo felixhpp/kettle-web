@@ -79,5 +79,5 @@ $().ready(function () {
 });
 
 var cancel = function(){
-    location.href = "user/listUI.shtml";
+    location.href = "view/user/listUI.shtml";
 }
