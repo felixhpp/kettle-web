@@ -1,15 +1,17 @@
 package com.leadingsoft.web.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.leadingsoft.core.dto.BootTablePage;
+import com.leadingsoft.core.mapper.KQuartzDao;
+import com.leadingsoft.core.model.KQuartz;
+import org.beetl.sql.core.DSTransactionManager;
 import org.pentaho.di.core.exception.KettleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.leadingsoft.core.dto.BootTablePage;
-import com.leadingsoft.core.mapper.KQuartzDao;
-import com.leadingsoft.core.model.KQuartz;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
 
 @Service
 public class QuartzService {
@@ -54,5 +56,63 @@ public class QuartzService {
 		bootTablePage.setRows(kQuartzList);
 		bootTablePage.setTotal(allCount);
 		return bootTablePage;
-	}	
+	}
+
+	/**
+	 * @Title delete
+	 * @Description 删除定时策略
+	 * @param quartzId 转换ID
+	 * @return void
+	 */
+	public void delete(Integer quartzId){
+		KQuartz kQuartz = kQuartzDao.unique(quartzId);
+		kQuartz.setDelFlag(0);
+		kQuartzDao.updateById(kQuartz);
+	}
+
+	/**
+	 * @Title insert
+	 * @Description 添加定时策略到数据库
+	 * @param kQuartz 转换对象
+	 * @param uId 用户ID
+	 * @throws SQLException
+	 * @return void
+	 */
+	public void insert(KQuartz kQuartz, Integer uId) throws SQLException {
+		DSTransactionManager.start();
+		//补充添加作业信息
+		//作业基础信息
+		kQuartz.setAddUser(uId);
+		kQuartz.setAddTime(new Date());
+		kQuartz.setEditUser(uId);
+		kQuartz.setEditTime(new Date());
+		//作业是否被删除
+		kQuartz.setDelFlag(1);
+
+		kQuartzDao.insert(kQuartz);
+		DSTransactionManager.commit();
+	}
+
+	/**
+	 * @Title getQuartz
+	 * @Description 获取定时策略对象
+	 * @param quartzId 定时策略ID
+	 * @return KQuartz
+	 */
+	public KQuartz getQuartz(Integer quartzId){
+		return kQuartzDao.single(quartzId);
+	}
+
+	/**
+	 * @Title update
+	 * @Description 更新定时策略信息
+	 * @param kQuartz 定时策略对象
+	 * @param uId 用户ID
+	 * @return void
+	 */
+	public void update(KQuartz kQuartz,Integer uId){
+		kQuartz.setEditTime(new Date());
+		kQuartz.setEditUser(uId);
+		kQuartzDao.updateTemplateById(kQuartz);
+	}
 }

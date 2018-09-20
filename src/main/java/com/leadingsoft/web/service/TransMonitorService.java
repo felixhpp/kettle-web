@@ -63,7 +63,8 @@ public class TransMonitorService {
 		}		
 		BootTablePage bootTablePage = new BootTablePage();
 		bootTablePage.setRows(newKTransMonitorList);
-		bootTablePage.setTotal(5);
+		//bootTablePage.setTotal(5);
+		bootTablePage.setTotal(newKTransMonitorList.size());
 		return bootTablePage;
 	}
 	
@@ -146,7 +147,11 @@ public class TransMonitorService {
 						if(startAndStopTime.length!=2)
 							continue;
 						//得到一次任务的起始时间和结束时间的毫秒值
-						resultList = CommonUtils.getEveryDayData(Long.parseLong(startAndStopTime[0]), Long.parseLong(startAndStopTime[1]), resultList);
+						//resultList = CommonUtils.getEveryDayData(Long.parseLong(startAndStopTime[0]), Long.parseLong(startAndStopTime[1]), resultList);
+						if(2==startAndStopTime.length){
+							resultList = CommonUtils.getEveryDayData(Long.parseLong(startAndStopTime[0]),
+							 	Long.parseLong(startAndStopTime[1]), resultList);
+						}
 					}
 				}			
 			}	

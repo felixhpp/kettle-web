@@ -1,26 +1,22 @@
 package com.leadingsoft.web.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.leadingsoft.common.toolkit.Constant;
 import com.leadingsoft.core.dto.BootTablePage;
 import com.leadingsoft.core.dto.ResultDto;
 import com.leadingsoft.core.model.KUser;
 import com.leadingsoft.web.service.JobMonitorService;
+import com.leadingsoft.web.service.JobService;
 import com.leadingsoft.web.service.TransMonitorService;
+import com.leadingsoft.web.service.TransService;
 import com.leadingsoft.web.utils.JsonUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @RequestMapping("/main/")
@@ -31,6 +27,12 @@ public class MainController {
 	
 	@Autowired
 	private JobMonitorService jobMonitorService;
+
+	@Autowired
+ 	private TransService transService;
+
+	@Autowired
+ 	private JobService jobService;
 	
 	/**
 	 * @Title allRuning

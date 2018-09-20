@@ -1,11 +1,11 @@
 package com.leadingsoft.web.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/view/")
@@ -117,7 +117,27 @@ public class PageController {
 	}
 	
 	/**==========user end==========**/
-	
+
+	/**==========quartz start==========**/
+
+	@RequestMapping("quartz/listUI.shtml")
+	public String quartzListUI(){
+		return "quartz/list";
+	}
+
+	@RequestMapping("quartz/addUI.shtml")
+	public String quartzAddUI(){
+		return "quartz/add";
+	}
+
+	@RequestMapping("quartz/editUI.shtml")
+	public String quartzEditUI(Integer quartzId, Model model){
+		model.addAttribute("quartzId", quartzId);
+		return "quartz/edit";
+	}
+
+	/**==========quartz end==========**/
+
 	/**==========record start==========**/
 	
 	@RequestMapping("trans/record/listUI.shtml")

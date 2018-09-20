@@ -63,7 +63,8 @@ public class JobMonitorService {
 		}
 		BootTablePage bootTablePage = new BootTablePage();
 		bootTablePage.setRows(newKJobMonitorList);
-		bootTablePage.setTotal(5);
+		//bootTablePage.setTotal(5);
+		bootTablePage.setTotal(newKJobMonitorList.size());
 		return bootTablePage;
 	}
 	

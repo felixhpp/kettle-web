@@ -73,8 +73,8 @@
                     </li> 
                     <li id="isAdmin">
                     	<a href="javascript:void(0)">
-                            <i class="fa fa-users" aria-hidden="true"></i>
-                            <span class="nav-label">用户管理</span>
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                            <span class="nav-label">系统设置</span>
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
@@ -100,7 +100,7 @@
                 <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i></button>
                 <nav class="page-tabs J_menuTabs">
                     <div class="page-tabs-content">
-                        <a href="view/mainUI.shtml" class="active J_menuTab" data-id="view/mainUI.shtml">首页</a>
+                        <a href="view/indexUI.shtml" class="active J_menuTab" data-id="view/mainUI.shtml">首页</a>
                     </div>
                 </nav>
                 <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i></button>
