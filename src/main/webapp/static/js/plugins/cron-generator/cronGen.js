@@ -478,6 +478,7 @@
                 }
                 break;
             case "MinutesTab":
+                $("#secondHidden").val('0');
                 switch ($("input:radio[name=min]:checked").val()) {
                     case "1":
                         $.fn.cronGen.tools.everyTime("min");
@@ -498,6 +499,8 @@
                 }
                 break;
             case "HourlyTab":
+                $("#secondHidden").val('0');
+                $("#minHidden").val('0');
                 switch ($("input:radio[name=hour]:checked").val()) {
                     case "1":
                        $.fn.cronGen.tools.everyTime("hour");
@@ -518,6 +521,9 @@
                 }
                 break;
             case "DailyTab":
+                $("#secondHidden").val('0');
+                $("#minHidden").val('0');
+                $("#hourHidden").val('0');
                 switch ($("input:radio[name=day]:checked").val()) {
                     case "1":
                         $.fn.cronGen.tools.everyTime("day");
@@ -550,6 +556,10 @@
                 }
                 break;
             case "WeeklyTab":
+                $("#secondHidden").val('0');
+                $("#minHidden").val('0');
+                $("#hourHidden").val('0');
+                $("#dayHidden").val('0');
                 switch ($("input:radio[name=week]:checked").val()) {
                     case "1":
                         $.fn.cronGen.tools.everyTime("week");
@@ -578,6 +588,11 @@
                 }
                 break;
             case "MonthlyTab":
+                $("#secondHidden").val('0');
+                $("#minHidden").val('0');
+                $("#hourHidden").val('0');
+                $("#dayHidden").val('0');
+                $("#weekHidden").val('0');
                 switch ($("input:radio[name=month]:checked").val()) {
                     case "1":
                         $.fn.cronGen.tools.everyTime("month");
@@ -602,6 +617,12 @@
                 }
                 break;
             case "YearlyTab":
+                $("#secondHidden").val('0');
+                $("#minHidden").val('0');
+                $("#hourHidden").val('0');
+                $("#dayHidden").val('0');
+                $("#weekHidden").val('0');
+                $("#monthHidden").val('0');
                 switch ($("input:radio[name=year]:checked").val()) {
                     case "1":
                         $.fn.cronGen.tools.unAppoint("year");

@@ -7928,3 +7928,6 @@ body.skin-3 {
 .left{
 	float:left!important;
 }
+.line .help-block {
+    display: inline!important;
+}
