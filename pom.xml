@@ -1,13 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.leadingsoft</groupId>
-  <artifactId>master</artifactId>
+  <artifactId>kettle-web-master</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
   <repositories>
       <repository>
-          <id>pentaho</id>
-          <url>http://nexus.pentaho.org/content/groups/omni/</url>
+          <id>pentaho-public</id>
+		  <name>Pentaho Public</name>
+          <url>http://nexus.pentaho.org/content/groups/omni</url>
+		  <releases>
+			  <enabled>true</enabled>
+			  <updatePolicy>always</updatePolicy>
+		  </releases>
+		  <snapshots>
+			  <enabled>true</enabled>
+			  <updatePolicy>always</updatePolicy>
+		  </snapshots>
       </repository>
   </repositories>
     <build>
@@ -160,6 +168,13 @@
 	     <artifactId>jxl</artifactId>
 	     <version>2.6.12</version>
 	 </dependency>
+	  <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+	  <dependency>
+		  <groupId>javax.servlet</groupId>
+		  <artifactId>javax.servlet-api</artifactId>
+		  <version>3.1.0</version>
+		  <scope>provided</scope>
+	  </dependency>
       <dependency>
           <groupId>junit</groupId>
           <artifactId>junit</artifactId>

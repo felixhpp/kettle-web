@@ -1,18 +1,5 @@
 package com.leadingsoft.web.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.pentaho.di.core.exception.KettleException;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.leadingsoft.common.toolkit.Constant;
 import com.leadingsoft.core.dto.BootTablePage;
 import com.leadingsoft.core.dto.ResultDto;
@@ -23,6 +10,17 @@ import com.leadingsoft.core.model.KUser;
 import com.leadingsoft.web.service.DataBaseRepositoryService;
 import com.leadingsoft.web.utils.DataValidate;
 import com.leadingsoft.web.utils.JsonUtils;
+import org.pentaho.di.core.exception.KettleException;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/repository/")
@@ -149,5 +147,15 @@ public class RepositoryController {
 		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
 		dataBaseRepositoryService.update(kRepository, kUser.getuId());
 		return ResultDto.success();	
+	}
+
+	@RequestMapping("database/delete.shtml")
+	public String delete(KRepository kRepository, HttpServletRequest request){
+		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
+		if(null==kRepository||null==kRepository.getRepositoryId()||"".equals(kRepository.getRepositoryId())){
+			return ResultDto.fail("资源仓库ID未找到");
+		}
+		dataBaseRepositoryService.delete(kRepository);
+		return ResultDto.success();
 	}
 }

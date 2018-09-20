@@ -169,4 +169,14 @@ public class DataBaseRepositoryService {
 		//只有不为null的字段才参与更新
 		kRepositoryDao.updateTemplateById(kRepository);
 	}
+
+	/**
+	 * @Title delete
+	 * @Description 删除资源库
+	 * @param kRepository 资源库对象
+	 * @ruturn void
+	 */
+	public void delete(KRepository kRepository) {
+		kRepositoryDao.deleteById(kRepository.getRepositoryId());
+	}
 }

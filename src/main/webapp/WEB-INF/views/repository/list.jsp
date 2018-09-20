@@ -98,7 +98,14 @@
 	    				            "repositoryId": row.repositoryId          
 	    				        },
 	    				        success: function (data) {
-	    				        	location.replace(location.href); 				        	 
+	    				        	//location.replace(location.href);
+                                    layer.msg('删除成功',{
+                                        time: 2000,
+                                        icon: 6
+                                    });
+                                    setTimeout(function(){
+                                        location.replace(location.href);
+                                    }, 2000);
 	    				        },
 	    				        error: function () {
 	    				            alert("系统出现问题，请联系管理员");
