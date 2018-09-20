@@ -141,12 +141,12 @@ $(function () {
             $('.J_mainContent').find('iframe.J_iframe').hide().parents('.J_mainContent').append(str1);
 
             //显示loading提示
-//            var loading = layer.load();
-//
-//            $('.J_mainContent iframe:visible').load(function () {
-//                //iframe加载完成后隐藏loading提示
-//                layer.close(loading);
-//            });
+            var loading = layer.load();
+
+            $('.J_mainContent iframe:visible').load(function () {
+                //iframe加载完成后隐藏loading提示
+                layer.close(loading);
+            });
             // 添加选项卡
             $('.J_menuTabs .page-tabs-content').append(str);
             scrollToTab($('.J_menuTab.active'));

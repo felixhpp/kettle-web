@@ -33,6 +33,9 @@
 	            	<a href="view/user/addUI.shtml" class="btn btn-w-m btn-info" type="button">
 	            		<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增用户
             		</a>
+                    <%--<button id="addUserBtn" class="btn btn-w-m btn-info" type="button">--%>
+                        <%--<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增用户--%>
+                    <%--</button>--%>
             	</div>
                 <table id="userList" data-toggle="table"
 					data-url="user/getList.shtml"
@@ -54,6 +57,7 @@
             </div>
         </div>
 	</div>
+
 	<!-- 全局js -->
     <script src="static/js/jquery.min.js?v=2.1.4"></script>
     <script src="static/js/bootstrap.min.js?v=3.3.6"></script>
@@ -66,6 +70,18 @@
     <script src="static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 	<script>
+        
+        // $("#addUserBtn").click(function () {
+        //     var curHtml = $("#addUserModal").prop("outerHTML");;
+        //     var index = layer.open({
+        //         type: 1,
+        //         title:"添加用户",
+        //         content: curHtml,
+        //         area: ['80%', '80%'],
+        //         maxmin: true
+        //     });
+        // });
+        
 	    function actionFormatter(value, row, index) {
 	    	return ['<a class="btn btn-primary btn-xs" id="edit" type="button"><i class="fa fa-paste" aria-hidden="true"></i>&nbsp;编辑</a>',
     			'&nbsp;&nbsp;',
@@ -116,6 +132,7 @@
 		            return row.userId
 		        });
 		    }
+		    
 		    
 		    
     </script>

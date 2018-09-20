@@ -72,7 +72,6 @@
 </div>
 <!-- 全局js -->
 <script src="static/js/jquery.min.js?v=2.1.4"></script>
-<script src="static/js/plugins/cron-generator/cronGen.js"></script>
 <!-- jQuery Validation plugin javascript-->
 <script src="static/js/plugins/validate/jquery.validate.min.js"></script>
 <script src="static/js/plugins/validate/messages_zh.min.js"></script>
@@ -81,7 +80,6 @@
 <script src="static/js/plugins/layer/layer.min.js"></script>
 <!-- 自定义js -->
 <script src="static/js/content.js?v=1.0.0"></script>
-<script src="static/js/plugins/jsTree/jstree.min.js"></script>
 <script src="static/js/my/user-add.js"></script>
 </body>
 </html>

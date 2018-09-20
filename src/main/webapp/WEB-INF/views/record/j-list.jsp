@@ -129,7 +129,8 @@
 				        	layer.open({
 			    				type: 1,
 			    				title: "转换日志记录",
-			    				area: ['50%', '50%'], //宽高
+                                area: ['80%', '80%'], //宽高
+                                maxmin: true,
 			    				content: data.data
 			    			});				        	 
 				        },

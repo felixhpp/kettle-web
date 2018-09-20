@@ -8,7 +8,7 @@
     <base href="<%=basePath %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-    <title>DingData--Process</title>
+    <title>kettle-web</title>
     <link rel="shortcut icon" href="favicon.ico">
     <link href="static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
@@ -95,7 +95,39 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
+                        <!--收缩-->
                         <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="javascript:void(0)"><i class="fa fa-bars"></i> </a>
+                        <!--顶部左侧菜单-->
+                        <ul>
+
+                        </ul>
+                        <!--顶部右侧菜单-->
+                        <ul class="kw-nav right-menu">
+                            <li class="kw-nav-item kw-fullscreen" data-minfo="全屏" pc="">
+                                <a href="javascript:;"><i class="glyphicon glyphicon-fullscreen"></i></a>
+                            </li>
+                            <li class="kw-nav-item" id="userInfo">
+                                <a href="javascript:;">
+                                    <img src="/Public/static/images/face.png" class="layui-nav-img userAvatar" width="35" height="35">
+                                    <cite class="adminName">TestUser</cite>
+                                    <span class="kw-nav-more"></span>
+                                </a>
+                                <dl class="kw-nav-child kw-anim kw-anim-upbit">
+                                    <dd>
+                                        <a href="javascript:;" data-url="view/index/changepass">
+                                            <i class="iconfont xman-edit-square"></i>
+                                            <cite>修改密码</cite>
+                                        </a>
+                                    </dd>
+                                    <dd>
+                                        <a href="index/logout.shtml" class="signOut">
+                                            <i class="iconfont xman-logout"></i>
+                                            <cite>退出</cite>
+                                        </a>
+                                    </dd>
+                                </dl>
+                            </li>
+                        </ul>
                     </div>
                 </nav>
             </div>

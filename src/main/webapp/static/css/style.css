@@ -3564,9 +3564,9 @@ ol.unstyled {
     background: none repeat scroll 0 0 white;
     border-top: 1px solid #e7eaec;
     overflow: hidden;
-    padding: 10px 20px;
+    padding: 5px 20px;
     margin: 0 -15px;
-    height: 44px;
+    height: 28px;
 }
 
 .footer.fixed_full {
@@ -3721,7 +3721,7 @@ nav.page-tabs .page-tabs-content {
 }
 
 #content-main {
-    height: calc(100% - 140px);
+    height: calc(100% - 124px);
     overflow: hidden;
 }
 
@@ -7838,7 +7838,7 @@ body.skin-3 {
 }
 
 .navbar-header {
-    width: 60%;
+    width: 100%;
 }
 
 .bs-glyphicons {
@@ -7930,4 +7930,67 @@ body.skin-3 {
 }
 .line .help-block {
     display: inline!important;
+}
+
+.content-hide{
+    display: none;
+}
+
+.navbar-header .kw-nav{
+    background: 0 0;
+}
+.right-menu{
+    background-color: inherit !important;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.navbar-header .kw-nav .kw-nav-item{
+    line-height: 50px !important;
+    max-height: 50px;
+}
+.navbar-header .kw-nav .kw-nav-item>a{
+    line-height: 50px !important;
+    max-height: 50px;
+    color: rgb(21, 20, 20);
+    cursor: pointer;
+    padding: 0 20px;
+}
+.kw-nav .kw-nav-item{
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 60px;
+}
+
+.navbar-header .kw-nav-child {
+    z-index: 99999;
+    top: 60px;
+    left: auto;
+    right: 0;
+}
+.kw-anim{
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.kw-anim-upbit {
+    -webkit-animation-name: layui-upbit;
+    animation-name: layui-upbit;
+}
+.kw-nav-child {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 65px;
+    min-width: 100%;
+    line-height: 36px;
+    padding: 5px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,.12);
+    border: 1px solid #d2d2d2;
+    background-color: #fff;
+    z-index: 100;
+    border-radius: 2px;
+    white-space: nowrap;
 }

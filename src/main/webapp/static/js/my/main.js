@@ -1,5 +1,80 @@
 $(document).ready(function () {
-	/*判断是否为管理员*/
+    var intips = '';
+    $("li[data-minfo]").hover(function () {
+        intips = layer.tips($(this).data('minfo'), $(this), {tips: [3, '#424242']});
+    }, function () {
+        layer.close(intips);
+    });
+
+    $(".kw-fullscreen").click(function () {
+        if($(this).find('i').hasClass('glyphicon-fullscreen')){
+            full();
+            $(this).data('minfo','退出全屏').find('i')
+                .removeClass('glyphicon-fullscreen').addClass('glyphicon-resize-small');
+        }else {
+            exitfull();
+            $(this).data('minfo','全屏').find('i')
+                .removeClass('glyphicon-resize-small').addClass('glyphicon-fullscreen');
+        }
+    });
+
+
+    //全屏
+    function full() {
+        var el = document.documentElement;
+        var rfs = el.requestFullScreen || el.webkitRequestFullScreen ||
+            el.mozRequestFullScreen || el.msRequestFullScreen;
+        if (rfs) { //typeof rfs != "undefined" && rfs
+            rfs.call(el);
+        } else if (typeof window.ActiveXObject != "undefined") {
+            //for IE，这里其实就是模拟了按下键盘的F11，使浏览器全屏
+            var wscript = new ActiveXObject("WScript.Shell");
+            if (wscript != null) {
+                wscript.SendKeys("{F11}");
+            }
+        }
+    };
+
+    //退出全屏
+    function exitfull() {
+        var el = document;
+        var cfs = el.cancelFullScreen || el.webkitCancelFullScreen ||
+            el.mozCancelFullScreen || el.exitFullScreen;
+        if (cfs) { //typeof cfs != "undefined" && cfs
+            cfs.call(el);
+        } else if (typeof window.ActiveXObject != "undefined") {
+            //for IE，这里和fullScreen相同，模拟按下F11键退出全屏
+            var wscript = new ActiveXObject("WScript.Shell");
+            if (wscript != null) {
+                wscript.SendKeys("{F11}");
+            }
+        }
+    };
+
+    function toggleFullScreen(){
+        var el = document.documentElement;
+        var isFullscreen = el.requestFullScreen || el.webkitRequestFullScreen ||
+            el.mozRequestFullScreen || el.msRequestFullScreen;
+        if(!isFullscreen){//进入全屏,多重短路表达式
+            (el.requestFullscreen&&el.requestFullscreen())||
+            (el.mozRequestFullScreen&&el.mozRequestFullScreen())||
+            (el.webkitRequestFullscreen&&el.webkitRequestFullscreen())||(el.msRequestFullscreen&&el.msRequestFullscreen());
+
+            $(this).data('minfo','退出全屏').find('i')
+                .removeClass('glyphicon-fullscreen').addClass('glyphicon-resize-small');
+
+        }else{	//退出全屏,三目运算符
+            document.exitFullscreen?document.exitFullscreen():
+                document.mozCancelFullScreen?document.mozCancelFullScreen():
+                    document.webkitExitFullscreen?document.webkitExitFullscreen():'';
+
+            $(this).data('minfo','全屏').find('i')
+                .removeClass('glyphicon-resize-small').addClass('glyphicon-fullscreen');
+
+        }
+    }
+
+    /*判断是否为管理员*/
 	$.ajax({
         type: 'POST',
         async: false,
