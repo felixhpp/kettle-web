@@ -303,3 +303,9 @@ CREATE TABLE `k_user` (
 -- Records of k_user
 -- ----------------------------
 INSERT INTO `k_user` VALUES ('1', 'admin', null, null, 'admin', 'cc9e6ea0462b98fe1d3cb09c2b46a838', null, null, null, null, '1');
+
+-- ----------------------------
+-- View structure for v_k_trans
+-- ----------------------------
+DROP VIEW IF EXISTS `v_k_trans`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_k_trans` AS select `k_trans`.`trans_id` AS `trans_id`,`k_trans`.`trans_name` AS `trans_name`,`k_trans`.`trans_description` AS `trans_description`,`k_trans`.`trans_type` AS `trans_type`,`k_trans`.`trans_path` AS `trans_path`,`k_trans`.`trans_repository_id` AS `trans_repository_id`,`k_trans`.`trans_record` AS `trans_record`,`k_trans`.`trans_log_level` AS `trans_log_level`,`k_trans`.`trans_status` AS `trans_status`,`k_trans`.`add_time` AS `add_time`,`k_trans`.`add_user` AS `add_user`,`k_trans`.`edit_time` AS `edit_time`,`k_trans`.`edit_user` AS `edit_user`,`k_trans`.`del_flag` AS `del_flag`,`k_quartz`.`quartz_description` AS `quartz_description`,`k_quartz`.`quartz_cron` AS `quartz_cron`,`k_trans`.`trans_quartz` AS `trans_quartz` from (`k_trans` join `k_quartz`) where (`k_trans`.`trans_quartz` = `k_quartz`.`quartz_id`) ;
