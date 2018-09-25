@@ -108,21 +108,22 @@
                             </li>
                             <li class="kw-nav-item" id="userInfo">
                                 <a href="javascript:;">
-                                    <img src="/Public/static/images/face.png" class="layui-nav-img userAvatar" width="35" height="35">
-                                    <cite class="adminName">TestUser</cite>
-                                    <span class="kw-nav-more"></span>
+                                    <img src="static/img/user.png" class="kw-nav-img userAvatar" width="35" height="35" style="border-radius: 50%;">
+                                    <span class="adminName" id="loginName">TestUser</span>
+                                    <span class="kw-nav-more fa fa-caret-down"></span>
                                 </a>
                                 <dl class="kw-nav-child kw-anim kw-anim-upbit">
                                     <dd>
                                         <a href="javascript:;" data-url="view/index/changepass">
-                                            <i class="iconfont xman-edit-square"></i>
-                                            <cite>修改密码</cite>
+                                            <i class="fa fa-lock"></i>
+                                            <span>修改密码</span>
                                         </a>
                                     </dd>
+                                    <hr>
                                     <dd>
                                         <a href="index/logout.shtml" class="signOut">
-                                            <i class="iconfont xman-logout"></i>
-                                            <cite>退出</cite>
+                                            <i class="fa fa-sign-out"></i>
+                                            <span>退出</span>
                                         </a>
                                     </dd>
                                 </dl>
@@ -154,7 +155,6 @@
                         </li>
                     </ul>
                 </div>
-                <a href="index/logout.shtml" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
             </div>
             <div class="row J_mainContent" id="content-main">
                 <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="view/mainUI.shtml" frameborder="0" seamless></iframe>
@@ -178,5 +178,14 @@
     <script type="text/javascript" src="static/js/plugins/pace/pace.min.js"></script>
     <!-- 自定义js -->
     <script type="text/javascript" src="static/js/my/main.js"></script>
+    <script type="text/javascript">
+        //显示登陆用户名称
+        var curLoginName = window.localStorage.getItem("uAccount");
+        if(curLoginName){
+            $("#localName").innerHTML(curLoginName);
+        }else {
+            //登出
+        };
+    </script>
 </body>
 </html>

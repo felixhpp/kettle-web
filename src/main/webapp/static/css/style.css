@@ -3696,11 +3696,11 @@ nav.page-tabs .page-tabs-content {
 }
 
 .roll-right.J_tabRight {
-    right: 140px;
+    right: 80px;
 }
 
 .roll-right.btn-group {
-    right: 60px;
+    right: 0px;
     width: 80px;
     padding: 0;
 }
@@ -7960,12 +7960,12 @@ body.skin-3 {
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    line-height: 60px;
+    line-height: 50px;
 }
 
 .navbar-header .kw-nav-child {
     z-index: 99999;
-    top: 60px;
+    top: 50px;
     left: auto;
     right: 0;
 }
@@ -7983,7 +7983,7 @@ body.skin-3 {
     display: none;
     position: absolute;
     left: 0;
-    top: 65px;
+    top: 55px;
     min-width: 100%;
     line-height: 36px;
     padding: 5px 0;
@@ -7993,4 +7993,18 @@ body.skin-3 {
     z-index: 100;
     border-radius: 2px;
     white-space: nowrap;
+}
+.kw-nav-child dd {
+    position: relative;
+    line-height: 36px;
+    text-align: center;
+}
+.kw-nav .kw-nav-child a {
+    color: #333;
+    font-style: normal;
+}
+
+.kw-nav .kw-nav-item .kw-nav-child>hr{
+    margin: 0;
+    color: #ddd8e5;
 }

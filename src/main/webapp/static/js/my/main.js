@@ -1,4 +1,13 @@
 $(document).ready(function () {
+    $("#userInfo").on("mouseover", function () {
+        $(this).find(".kw-nav-child").show();
+        $(this).find("span.kw-nav-more").removeClass("fa-caret-down").addClass("fa-caret-up");
+    }).on("mouseout", function () {
+        $(this).find(".kw-nav-child").hide();
+        $(this).find("span.kw-nav-more").removeClass("fa-caret-up").addClass("fa-caret-down");
+    });
+
+    //全屏和退出全屏
     var intips = '';
     $("li[data-minfo]").hover(function () {
         intips = layer.tips($(this).data('minfo'), $(this), {tips: [3, '#424242']});
@@ -51,28 +60,7 @@ $(document).ready(function () {
         }
     };
 
-    function toggleFullScreen(){
-        var el = document.documentElement;
-        var isFullscreen = el.requestFullScreen || el.webkitRequestFullScreen ||
-            el.mozRequestFullScreen || el.msRequestFullScreen;
-        if(!isFullscreen){//进入全屏,多重短路表达式
-            (el.requestFullscreen&&el.requestFullscreen())||
-            (el.mozRequestFullScreen&&el.mozRequestFullScreen())||
-            (el.webkitRequestFullscreen&&el.webkitRequestFullscreen())||(el.msRequestFullscreen&&el.msRequestFullscreen());
 
-            $(this).data('minfo','退出全屏').find('i')
-                .removeClass('glyphicon-fullscreen').addClass('glyphicon-resize-small');
-
-        }else{	//退出全屏,三目运算符
-            document.exitFullscreen?document.exitFullscreen():
-                document.mozCancelFullScreen?document.mozCancelFullScreen():
-                    document.webkitExitFullscreen?document.webkitExitFullscreen():'';
-
-            $(this).data('minfo','全屏').find('i')
-                .removeClass('glyphicon-resize-small').addClass('glyphicon-fullscreen');
-
-        }
-    }
 
     /*判断是否为管理员*/
 	$.ajax({
