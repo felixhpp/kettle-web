@@ -18,4 +18,8 @@
     spring + mvc + beetlsql
     任务调度：quartz
 
-  [1]: https://github.com/uKettle/kettle
+### 说明
+本项目fork自码云的开源项目[kettle-master](https://gitee.com/1967988842/kettle-master)。非常感谢[@潇洒的吸血鬼](https://gitee.com/1967988842)提供的帮助！！！
+
+
+> [[1]: https://github.com/uKettle/kettle](https://github.com/uKettle/kettle)
