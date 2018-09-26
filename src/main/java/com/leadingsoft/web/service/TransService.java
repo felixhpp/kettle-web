@@ -1,12 +1,13 @@
 package com.leadingsoft.web.service;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.leadingsoft.common.toolkit.Constant;
+import com.leadingsoft.core.dto.BootTablePage;
+import com.leadingsoft.core.mapper.*;
+import com.leadingsoft.core.model.*;
+import com.leadingsoft.web.quartz.QuartzManager;
+import com.leadingsoft.web.quartz.TransQuartz;
+import com.leadingsoft.web.quartz.model.DBConnectionModel;
+import com.leadingsoft.web.utils.CommonUtils;
 import org.apache.commons.lang.StringUtils;
 import org.beetl.sql.core.DSTransactionManager;
 import org.beetl.sql.core.db.KeyHolder;
@@ -15,20 +16,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.leadingsoft.common.toolkit.Constant;
-import com.leadingsoft.core.dto.BootTablePage;
-import com.leadingsoft.core.mapper.KQuartzDao;
-import com.leadingsoft.core.mapper.KRepositoryDao;
-import com.leadingsoft.core.mapper.KTransDao;
-import com.leadingsoft.core.mapper.KTransMonitorDao;
-import com.leadingsoft.core.model.KQuartz;
-import com.leadingsoft.core.model.KRepository;
-import com.leadingsoft.core.model.KTrans;
-import com.leadingsoft.core.model.KTransMonitor;
-import com.leadingsoft.web.quartz.QuartzManager;
-import com.leadingsoft.web.quartz.TransQuartz;
-import com.leadingsoft.web.quartz.model.DBConnectionModel;
-import com.leadingsoft.web.utils.CommonUtils;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class TransService {
@@ -44,6 +37,9 @@ public class TransService {
 	
 	@Autowired
 	private KTransMonitorDao kTransMonitorDao;
+
+	@Autowired
+	private VKTransDao vkTransDao;
 	
 	@Value("${kettle.log.file.path}")
 	private String kettleLogFilePath;
@@ -76,7 +72,28 @@ public class TransService {
 		template.setDelFlag(1);
 		return kTransDao.template(template);
 	}
-	
+
+	/**
+	 * @Title getListTransView
+	 * @Description 获取列表视图
+	 * @param start 其实行数
+	 * @param size 获取数据的条数
+	 * @param uId 用户ID
+	 * @return
+	 * @return BootTablePage
+	 */
+	public BootTablePage getListTransView(Integer start, Integer size, Integer uId){
+		VKTrans template = new VKTrans();
+		template.setAddUser(uId);
+		template.setDelFlag(1);
+		List<VKTrans> kTransList = vkTransDao.template(template, start, size);
+		Long allCount = vkTransDao.templateCount(template);
+		BootTablePage bootTablePage = new BootTablePage();
+		bootTablePage.setRows(kTransList);
+		bootTablePage.setTotal(allCount);
+		return bootTablePage;
+	}
+
 	/**
 	 * @Title getList
 	 * @Description 获取列表

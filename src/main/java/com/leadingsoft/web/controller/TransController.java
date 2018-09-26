@@ -36,6 +36,12 @@ public class TransController {
 		BootTablePage list = transService.getList(offset, limit, kUser.getuId());				
 		return JsonUtils.objectToJson(list);
 	}
+	@RequestMapping("getListTransView.shtml")
+	public  String getListTransView(Integer offset, Integer limit, HttpServletRequest request){
+		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
+		BootTablePage list = transService.getListTransView(offset, limit, kUser.getuId());
+		return JsonUtils.objectToJson(list);
+	}
 	
 	@RequestMapping("uploadTrans.shtml")
 	public String uploadJob(MultipartFile transFile, HttpServletRequest request){
@@ -59,10 +65,10 @@ public class TransController {
 				return ResultDto.success();
 			} catch (SQLException e) {
 				e.printStackTrace();
-				return ResultDto.fail("添加作业失败");
+				return ResultDto.fail("添加转换失败");
 			}				
 		}else{
-			return ResultDto.fail("该作业已经添加过了");
+			return ResultDto.fail("该转换已经添加过了");
 		}
 	}
 	

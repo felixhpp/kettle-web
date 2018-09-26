@@ -1,10 +1,10 @@
 package com.leadingsoft.common.toolkit;
 
-import java.io.FileInputStream;
-import java.util.Properties;
-
 import org.pentaho.di.core.Const;
 import org.pentaho.di.core.logging.LogLevel;
+
+import java.io.FileInputStream;
+import java.util.Properties;
 
 /**
  * 

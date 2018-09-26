@@ -43,7 +43,8 @@
             		</button>
             	</div>
                 <table id="transList" data-toggle="table"
-					data-url="trans/getList.shtml"
+					<%--data-url="trans/getList.shtml"--%>
+                    data-url="trans/getListTransView.shtml"
 					data-query-params=queryParams data-query-params-type="limit"
 					data-pagination="true"
 					data-side-pagination="server" data-pagination-loop="false">
@@ -52,6 +53,8 @@
 							<th data-field="transId">转换编号</th>
 							<th data-field="transName" data-formatter="transNameFormatter">转换名称</th>
 							<th data-field="editTime">转换更新时间</th>
+                            <th data-field="quartzDescription">定时策略描述</th>
+                            <th data-field="quartzCron">定时策略表达式</th>
 							<th data-field="transStatus" data-formatter="transStatusFormatter">转换状态</th>
 							<th data-field="action" data-formatter="actionFormatter"
 								data-events="actionEvents">操作</th>
@@ -203,7 +206,8 @@
 		    };
 		    
 		    function search(){
-		    	$('#transList').bootstrapTable('refresh', "trans/getList.shtml");
+		    	//$('#transList').bootstrapTable('refresh', "trans/getList.shtml");
+                $('#transList').bootstrapTable('refresh', "trans/getListTransView.shtml");
 		    }
     </script>
 </body>
