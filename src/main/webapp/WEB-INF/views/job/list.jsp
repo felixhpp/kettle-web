@@ -43,7 +43,7 @@
             		</button>
             	</div>
                 <table id="jobList" data-toggle="table"
-					data-url="job/getList.shtml"
+					data-url="job/getListJobView.shtml"
 					data-query-params=queryParams data-query-params-type="limit"
 					data-pagination="true"
 					data-side-pagination="server" data-pagination-loop="false">
@@ -52,6 +52,8 @@
 							<th data-field="jobId">作业编号</th>
 							<th data-field="jobName" data-formatter="jobNameFormatter">作业名称</th>
 							<th data-field="editTime">作业更新时间</th>
+                            <th data-field="quartzDescription">定时策略描述</th>
+                            <th data-field="quartzCron">定时策略表达式</th>
 							<th data-field="jobStatus" data-formatter="jobStatusFormatter">作业状态</th>
 							<th data-field="action" data-formatter="actionFormatter"
 								data-events="actionEvents">操作</th>
@@ -203,7 +205,7 @@
 		    };
 		    		    
 		    function search(){
-		    	$('#jobList').bootstrapTable('refresh', "job/getList.shtml");
+		    	$('#jobList').bootstrapTable('refresh', "job/getListJobView.shtml");
 		    }
     </script>
 </body>

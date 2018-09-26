@@ -1,12 +1,14 @@
 package com.leadingsoft.web.service;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.leadingsoft.common.exception.SeviceException;
+import com.leadingsoft.common.toolkit.Constant;
+import com.leadingsoft.core.dto.BootTablePage;
+import com.leadingsoft.core.mapper.*;
+import com.leadingsoft.core.model.*;
+import com.leadingsoft.web.quartz.JobQuartz;
+import com.leadingsoft.web.quartz.QuartzManager;
+import com.leadingsoft.web.quartz.model.DBConnectionModel;
+import com.leadingsoft.web.utils.CommonUtils;
 import org.apache.commons.lang.StringUtils;
 import org.beetl.sql.core.DSTransactionManager;
 import org.beetl.sql.core.db.KeyHolder;
@@ -15,21 +17,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.leadingsoft.common.exception.SeviceException;
-import com.leadingsoft.common.toolkit.Constant;
-import com.leadingsoft.core.dto.BootTablePage;
-import com.leadingsoft.core.mapper.KJobDao;
-import com.leadingsoft.core.mapper.KJobMonitorDao;
-import com.leadingsoft.core.mapper.KQuartzDao;
-import com.leadingsoft.core.mapper.KRepositoryDao;
-import com.leadingsoft.core.model.KJob;
-import com.leadingsoft.core.model.KJobMonitor;
-import com.leadingsoft.core.model.KQuartz;
-import com.leadingsoft.core.model.KRepository;
-import com.leadingsoft.web.quartz.JobQuartz;
-import com.leadingsoft.web.quartz.QuartzManager;
-import com.leadingsoft.web.quartz.model.DBConnectionModel;
-import com.leadingsoft.web.utils.CommonUtils;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class JobService {
@@ -37,10 +30,13 @@ public class JobService {
 	
 	@Autowired
 	private KJobDao kJobDao;
-	
+
 	@Autowired
-	private KQuartzDao kQuartzDao; 
-	
+	private KQuartzDao kQuartzDao;
+
+	@Autowired
+	private VKJobDao vKJobDao;
+
 	@Autowired
 	private KRepositoryDao KRepositoryDao; 
 	
@@ -80,6 +76,27 @@ public class JobService {
 		template.setDelFlag(1);
 		List<KJob> kJobList = kJobDao.template(template, start, size);
 		Long allCount = kJobDao.templateCount(template);		
+		BootTablePage bootTablePage = new BootTablePage();
+		bootTablePage.setRows(kJobList);
+		bootTablePage.setTotal(allCount);
+		return bootTablePage;
+	}
+
+	/**
+	 * @Title getList
+	 * @Description 获取列表
+	 * @param start 其实行数
+	 * @param size 获取数据的条数
+	 * @param uId 用户ID
+	 * @return
+	 * @return BootTablePage
+	 */
+	public BootTablePage getListJobView(Integer start, Integer size, Integer uId){
+		VKJob template = new VKJob();
+		template.setAddUser(uId);
+		template.setDelFlag(1);
+		List<VKJob> kJobList = vKJobDao.template(template, start, size);
+		Long allCount = vKJobDao.templateCount(template);
 		BootTablePage bootTablePage = new BootTablePage();
 		bootTablePage.setRows(kJobList);
 		bootTablePage.setTotal(allCount);

@@ -305,6 +305,80 @@ CREATE TABLE `k_user` (
 INSERT INTO `k_user` VALUES ('1', 'admin', null, null, 'admin', 'cc9e6ea0462b98fe1d3cb09c2b46a838', null, null, null, null, '1');
 
 -- ----------------------------
+-- Table structure for k_trans_log
+-- ----------------------------
+DROP TABLE IF EXISTS `k_trans_log`;
+CREATE TABLE `k_trans_log` (
+  `ID_BATCH` int(11) DEFAULT NULL COMMENT '批次ID',
+  `CHANNEL_ID` varchar(255) DEFAULT NULL,
+  `TRANSNAME` varchar(255) DEFAULT NULL COMMENT '转换名称',
+  `STATUS` varchar(15) DEFAULT NULL COMMENT '状态',
+  `LINES_READ` bigint(20) DEFAULT NULL COMMENT '读',
+  `LINES_WRITTEN` bigint(20) DEFAULT NULL COMMENT '写',
+  `LINES_UPDATED` bigint(20) DEFAULT NULL COMMENT '更新',
+  `LINES_INPUT` bigint(20) DEFAULT NULL COMMENT '输入',
+  `LINES_OUTPUT` bigint(20) DEFAULT NULL COMMENT '输出',
+  `LINES_REJECTED` bigint(20) DEFAULT NULL COMMENT '舍弃',
+  `ERRORS` bigint(20) DEFAULT NULL COMMENT '错误',
+  `STARTDATE` datetime DEFAULT NULL COMMENT '启动日期',
+  `ENDDATE` datetime DEFAULT NULL COMMENT '结束日期',
+  `LOGDATE` datetime DEFAULT NULL COMMENT '日志日期',
+  `DEPDATE` datetime DEFAULT NULL COMMENT '依赖日期',
+  `REPLAYDATE` datetime DEFAULT NULL COMMENT '启动时间',
+  `LOG_FIELD` mediumtext,
+  KEY `IDX_k_trans_log_1` (`ID_BATCH`),
+  KEY `IDX_k_trans_log_2` (`ERRORS`,`STATUS`,`TRANSNAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='转换日志表';
+
+-- ----------------------------
+-- Table structure for k_trans_step_log
+-- ----------------------------
+DROP TABLE IF EXISTS `k_trans_step_log`;
+CREATE TABLE `k_trans_step_log` (
+  `ID_BATCH` int(11) DEFAULT NULL COMMENT '批次ID',
+  `CHANNEL_ID` varchar(255) DEFAULT NULL,
+  `LOG_DATE` datetime DEFAULT NULL COMMENT '日志时间',
+  `TRANSNAME` varchar(255) DEFAULT NULL COMMENT '转换名称',
+  `STEPNAME` varchar(255) DEFAULT NULL COMMENT '步骤名称',
+  `STEP_COPY` int(11) DEFAULT NULL COMMENT '复杂',
+  `LINES_READ` bigint(20) DEFAULT NULL COMMENT '读',
+  `LINES_WRITTEN` bigint(20) DEFAULT NULL COMMENT '写',
+  `LINES_UPDATED` bigint(20) DEFAULT NULL COMMENT '更新',
+  `LINES_INPUT` bigint(20) DEFAULT NULL COMMENT '输入',
+  `LINES_OUTPUT` bigint(20) DEFAULT NULL COMMENT '输出',
+  `LINES_REJECTED` bigint(20) DEFAULT NULL COMMENT '舍弃',
+  `ERRORS` bigint(20) DEFAULT NULL COMMENT '错误'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='转换步骤日志表';
+
+-- ----------------------------
+-- Table structure for k_trans_running_log
+-- ----------------------------
+DROP TABLE IF EXISTS `k_trans_running_log`;
+CREATE TABLE `k_trans_running_log` (
+  `ID_BATCH` int(11) DEFAULT NULL COMMENT '批次ID',
+  `SEQ_NR` int(11) DEFAULT NULL COMMENT '编号',
+  `LOGDATE` datetime DEFAULT NULL COMMENT '日志日期',
+  `TRANSNAME` varchar(255) DEFAULT NULL COMMENT '转换名称',
+  `STEPNAME` varchar(255) DEFAULT NULL COMMENT '步骤名称',
+  `STEP_COPY` int(11) DEFAULT NULL COMMENT '复制',
+  `LINES_READ` bigint(20) DEFAULT NULL COMMENT '读',
+  `LINES_WRITTEN` bigint(20) DEFAULT NULL COMMENT '写',
+  `LINES_UPDATED` bigint(20) DEFAULT NULL COMMENT '更新',
+  `LINES_INPUT` bigint(20) DEFAULT NULL COMMENT '输入',
+  `LINES_OUTPUT` bigint(20) DEFAULT NULL COMMENT '输出',
+  `LINES_REJECTED` bigint(20) DEFAULT NULL COMMENT '舍弃',
+  `ERRORS` bigint(20) DEFAULT NULL COMMENT '错误',
+  `INPUT_BUFFER_ROWS` bigint(20) DEFAULT NULL COMMENT '输入缓存区',
+  `OUTPUT_BUFFER_ROWS` bigint(20) DEFAULT NULL COMMENT '输出缓存区'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='转换运行日志表';
+
+-- ----------------------------
+-- View structure for v_k_job
+-- ----------------------------
+DROP VIEW IF EXISTS `v_k_job`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_k_job` AS select `k_job`.`job_id` AS `job_id`,`k_job`.`job_name` AS `job_name`,`k_job`.`job_description` AS `job_description`,`k_job`.`job_type` AS `job_type`,`k_job`.`job_path` AS `job_path`,`k_job`.`job_repository_id` AS `job_repository_id`,`k_job`.`job_quartz` AS `job_quartz`,`k_job`.`job_record` AS `job_record`,`k_job`.`job_log_level` AS `job_log_level`,`k_job`.`job_status` AS `job_status`,`k_job`.`add_time` AS `add_time`,`k_job`.`add_user` AS `add_user`,`k_job`.`edit_time` AS `edit_time`,`k_job`.`edit_user` AS `edit_user`,`k_job`.`del_flag` AS `del_flag`,`k_quartz`.`quartz_description` AS `quartz_description`,`k_quartz`.`quartz_cron` AS `quartz_cron` from (`k_job` join `k_quartz`) where (`k_job`.`job_quartz` = `k_quartz`.`quartz_id`) ;
+
+-- ----------------------------
 -- View structure for v_k_trans
 -- ----------------------------
 DROP VIEW IF EXISTS `v_k_trans`;

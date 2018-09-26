@@ -1,15 +1,5 @@
 package com.leadingsoft.web.controller;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.leadingsoft.common.toolkit.Constant;
 import com.leadingsoft.core.dto.BootTablePage;
 import com.leadingsoft.core.dto.ResultDto;
@@ -17,6 +7,14 @@ import com.leadingsoft.core.model.KJob;
 import com.leadingsoft.core.model.KUser;
 import com.leadingsoft.web.service.JobService;
 import com.leadingsoft.web.utils.JsonUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.sql.SQLException;
 
 
 @RestController
@@ -40,7 +38,15 @@ public class JobController {
 		BootTablePage list = jobService.getList(offset, limit, kUser.getuId());				
 		return JsonUtils.objectToJson(list);
 	}
-	
+
+	@RequestMapping("getListJobView.shtml")
+	public String getListJobView(Integer offset, Integer limit, HttpServletRequest request){
+		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
+		BootTablePage list = jobService.getListJobView(offset, limit, kUser.getuId());
+		return JsonUtils.objectToJson(list);
+	}
+
+
 	@RequestMapping("delete.shtml")
 	public String delete(Integer jobId){
 		jobService.delete(jobId);
