@@ -373,6 +373,57 @@ CREATE TABLE `k_trans_running_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='转换运行日志表';
 
 -- ----------------------------
+-- Table structure for k_job_log
+-- ----------------------------
+DROP TABLE IF EXISTS `k_job_log`;
+CREATE TABLE `k_job_log` (
+  `ID_JOB` int(11) DEFAULT NULL COMMENT '批次ID',
+  `CHANNEL_ID` varchar(255) DEFAULT NULL COMMENT '日志记录通道ID',
+  `JOBNAME` varchar(255) DEFAULT NULL COMMENT '作业名称',
+  `STATUS` varchar(15) DEFAULT NULL COMMENT '状态',
+  `LINES_READ` bigint(20) DEFAULT NULL COMMENT '读',
+  `LINES_WRITTEN` bigint(20) DEFAULT NULL COMMENT '写',
+  `LINES_UPDATED` bigint(20) DEFAULT NULL COMMENT '更新',
+  `LINES_INPUT` bigint(20) DEFAULT NULL COMMENT '输入',
+  `LINES_OUTPUT` bigint(20) DEFAULT NULL COMMENT '输出',
+  `LINES_REJECTED` bigint(20) DEFAULT NULL COMMENT '舍弃',
+  `ERRORS` bigint(20) DEFAULT NULL COMMENT '错误',
+  `STARTDATE` datetime DEFAULT NULL COMMENT '启动日期',
+  `ENDDATE` datetime DEFAULT NULL COMMENT '结束日期',
+  `LOGDATE` datetime DEFAULT NULL COMMENT '日志日期',
+  `DEPDATE` datetime DEFAULT NULL,
+  `REPLAYDATE` datetime DEFAULT NULL,
+  `LOG_FIELD` mediumtext,
+  KEY `IDX_k_job_log_1` (`ID_JOB`),
+  KEY `IDX_k_job_log_2` (`ERRORS`,`STATUS`,`JOBNAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='作业日志表';
+
+-- ----------------------------
+-- Table structure for k_job_step_log
+-- ----------------------------
+DROP TABLE IF EXISTS `k_job_step_log`;
+CREATE TABLE `k_job_step_log` (
+  `ID_BATCH` int(11) DEFAULT NULL COMMENT '批次ID',
+  `CHANNEL_ID` varchar(255) DEFAULT NULL COMMENT '日志记录通道ID',
+  `LOG_DATE` datetime DEFAULT NULL COMMENT '日志日期',
+  `TRANSNAME` varchar(255) DEFAULT NULL COMMENT '父作业名称',
+  `STEPNAME` varchar(255) DEFAULT NULL COMMENT '作业项名称',
+  `LINES_READ` bigint(20) DEFAULT NULL COMMENT '读',
+  `LINES_WRITTEN` bigint(20) DEFAULT NULL COMMENT '写',
+  `LINES_UPDATED` bigint(20) DEFAULT NULL COMMENT '更新',
+  `LINES_INPUT` bigint(20) DEFAULT NULL COMMENT '输入',
+  `LINES_OUTPUT` bigint(20) DEFAULT NULL COMMENT '输出',
+  `LINES_REJECTED` bigint(20) DEFAULT NULL COMMENT '舍弃',
+  `ERRORS` bigint(20) DEFAULT NULL COMMENT '错误',
+  `RESULT` enum('N','Y') CHARACTER SET utf8 DEFAULT NULL COMMENT '结果',
+  --`RESULT` tinyint(1) DEFAULT NULL COMMENT '结果',
+  `NR_RESULT_ROWS` bigint(20) DEFAULT NULL COMMENT '结果记录数',
+  `NR_RESULT_FILES` bigint(20) DEFAULT NULL COMMENT '结果文件数',
+  KEY `IDX_k_job_step_log_1` (`ID_BATCH`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='作业项日志表';
+
+
+-- ----------------------------
 -- View structure for v_k_job
 -- ----------------------------
 DROP VIEW IF EXISTS `v_k_job`;
