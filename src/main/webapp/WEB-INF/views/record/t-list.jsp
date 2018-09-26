@@ -119,9 +119,9 @@
     	}; 
     	function recordStatusFormatter(value, row, index){
     		if (value == "1"){
-    			return "运行成功";
+    			return '<span style="color: #00A600">运行成功</span>';
     		}else if (value == "2"){
-    			return "运行失败";
+    			return '<span style="color: #ff0000">运行失败</span>';
     		}else {
     			return "未定义";
     		}

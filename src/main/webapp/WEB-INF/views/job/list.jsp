@@ -56,7 +56,7 @@
                             <th data-field="quartzCron">定时策略表达式</th>
 							<th data-field="jobStatus" data-formatter="jobStatusFormatter">作业状态</th>
 							<th data-field="action" data-formatter="actionFormatter"
-								data-events="actionEvents">操作</th>
+								data-events="actionEvents">操作</th><span></span>
 						</tr>
 					</thead>
 				</table>

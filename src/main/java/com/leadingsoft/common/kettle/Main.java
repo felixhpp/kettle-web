@@ -25,6 +25,7 @@ public class Main {
 	private static String port = PropertyUtil.getProperty("jdbc.port");
 	private static String name = PropertyUtil.getProperty("jdbc.username");
 	private static String password = PropertyUtil.getProperty("jdbc.password");
+
 	public static void main(String[] args) throws Exception{
 		KettleEnvironment.init();		
 		//数据库连接元对象
@@ -43,14 +44,17 @@ public class Main {
         	System.out.println("error");
         }
         RepositoryDirectoryInterface jobDirectory = repository.loadRepositoryDirectoryTree().findDirectory("/");
-        runTranslate(repository, jobDirectory, "test111");
-        //runJob(repository, jobDirectory, "work1");
+        //runTranslate(repository, jobDirectory, "test111");
+        runJob(repository, jobDirectory, "job1");
 	}
 
 	public static void runTranslate(KettleDatabaseRepository repository, RepositoryDirectoryInterface directory, String transName) throws KettleException{
 		TransMeta transMeta = repository.loadTransformation(transName, directory, new ProgressNullMonitorListener(), true, "1.0");
 		transMeta.setCapturingStepPerformanceSnapShots(true);
-		Trans trans = new Trans(transMeta);  
+		//设置日志输出到表中
+		setTransLog(transMeta);
+
+		Trans trans = new Trans(transMeta);
         trans.setLogLevel(LogLevel.DEBUG);
         trans.setMonitored(true);
 		trans.setInitializing(true);
@@ -58,8 +62,7 @@ public class Main {
 		trans.setRunning(true);
 		trans.setSafeModeEnabled(true);
 
-		//设置日志输出到表中
-		setTransLog(transMeta);
+
 		// 执行ktr
 		trans.execute(null);
 		// 等待执行完毕
@@ -98,9 +101,11 @@ public class Main {
 	
 	public static void runJob(KettleDatabaseRepository repository, RepositoryDirectoryInterface directory, String jobName) throws KettleException{	
         JobMeta jobMeta = repository.loadJob(jobName, directory, new ProgressNullMonitorListener(), null);
+		setJobsLog(jobMeta);
         Job job = new Job(repository, jobMeta);
         job.setDaemon(true);
         job.setLogLevel(LogLevel.DEBUG);
+
         job.run();
         job.waitUntilFinished();   
         if (job.isFinished()){
@@ -136,7 +141,7 @@ public class Main {
 		//region 设置变量集
 		VariableSpace space = new Variables();
 		//将step日志数据库配置名加入到变量集中
-		space.setVariable("kettle_log","test");
+		space.setVariable("transloging","test");
 		space.initializeVariablesFrom(null);
 		//endregion
 
@@ -156,6 +161,56 @@ public class Main {
 		//设置TransMeta的StepLogTable
 		transMeta.setStepLogTable(stepLogTable);
 		//endregion
+
+	}
+
+	/**
+	 * @Title setJobsLog
+	 * @Description 自定义设置作业日志
+	 * @param jobMeta
+	 * @throws
+	 * @ruturn void
+	 */
+	public static void setJobsLog(JobMeta jobMeta){
+
+		DatabaseMeta databaseMeta = new DatabaseMeta();
+		databaseMeta.setName("test");
+		databaseMeta.setDatabaseType("MYSQL");
+		databaseMeta.setAccessType(DatabaseMeta.TYPE_ACCESS_NATIVE);
+		databaseMeta.setHostname(host);
+		databaseMeta.setDBName(dbName);
+		databaseMeta.setDBPort(port);
+		databaseMeta.setUsername(name);
+		databaseMeta.setPassword(password);
+
+		jobMeta.addDatabase(databaseMeta);
+
+		//region 定义变量
+		VariableSpace space = new Variables();
+		//将日志数据库配置名加入到变量集中
+		space.setVariable("jobloging", "test");
+		space.initializeVariablesFrom(null);
+		//endregion
+
+		//定义job日志
+		//声明JobLogTable。space:系统变量;jobMeta:提供数据库连接
+		JobLogTable jobLogTable = JobLogTable.getDefault(space,jobMeta);
+		//JobLogTable使用的数据库连接名（上面配置的变量名）。
+		jobLogTable.setConnectionName("test");
+		//设置job日志的表名
+		jobLogTable.setTableName("k_job_log");
+		//设置jobMeta的JobLogTable
+		jobMeta.setJobLogTable(jobLogTable);
+
+		//定义JobEntry日志
+		//声明JobEntryLogTable。space:系统变量;jobMeta:提供数据库连接
+		JobEntryLogTable jobEntryLogTable = JobEntryLogTable.getDefault(space, jobMeta);
+		//JobEntryLogTable使用的数据库连接名（上面配置的变量名）。
+		jobEntryLogTable.setConnectionName("test");
+		//设置JobEntry日志的表名
+		jobEntryLogTable.setTableName("k_job_step_log");
+		//设置jobMeta的JobEntryLogTable
+		jobMeta.setJobEntryLogTable(jobEntryLogTable);
 
 	}
 }
