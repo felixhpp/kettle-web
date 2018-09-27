@@ -24,8 +24,8 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
-                        <div class="dropdown profile-element">
-                            <span><img alt="image" src="static/img/logo.jpg"></span>            
+                        <div class="dropdown profile-element kw-logo">
+                            <span>kettle-web</span>
                         </div>
                         <div class="logo-element">Data</div>
                     </li>
@@ -108,7 +108,7 @@
                             </li>
                             <li class="kw-nav-item" id="userInfo">
                                 <a href="javascript:;">
-                                    <img src="static/img/user.png" class="kw-nav-img userAvatar" width="35" height="35" style="border-radius: 50%;">
+                                    <img src="static/img/user.png" class="kw-nav-img userAvatar" width="30" height="30" style="border-radius: 50%;">
                                     <span class="adminName" id="loginName">TestUser</span>
                                     <span class="kw-nav-more fa fa-caret-down"></span>
                                 </a>

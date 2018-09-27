@@ -1,20 +1,15 @@
 package com.leadingsoft.web.quartz;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Date;
-
+import com.leadingsoft.common.kettle.environment.KettleLogSetting;
+import com.leadingsoft.common.kettle.repository.RepositoryUtil;
+import com.leadingsoft.common.toolkit.Constant;
+import com.leadingsoft.core.model.KRepository;
+import com.leadingsoft.core.model.KTransMonitor;
+import com.leadingsoft.core.model.KTransRecord;
+import com.leadingsoft.web.quartz.model.DBConnectionModel;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.beetl.sql.core.ClasspathLoader;
-import org.beetl.sql.core.ConnectionSource;
-import org.beetl.sql.core.ConnectionSourceHelper;
-import org.beetl.sql.core.DSTransactionManager;
-import org.beetl.sql.core.Interceptor;
-import org.beetl.sql.core.SQLLoader;
-import org.beetl.sql.core.SQLManager;
-import org.beetl.sql.core.UnderlinedNameConversion;
+import org.beetl.sql.core.*;
 import org.beetl.sql.core.db.DBStyle;
 import org.beetl.sql.core.db.MySqlStyle;
 import org.beetl.sql.ext.DebugInterceptor;
@@ -34,12 +29,10 @@ import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import com.leadingsoft.common.kettle.repository.RepositoryUtil;
-import com.leadingsoft.common.toolkit.Constant;
-import com.leadingsoft.core.model.KRepository;
-import com.leadingsoft.core.model.KTransMonitor;
-import com.leadingsoft.core.model.KTransRecord;
-import com.leadingsoft.web.quartz.model.DBConnectionModel;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Date;
 
 public class TransQuartz implements Job {
 
@@ -110,6 +103,10 @@ public class TransQuartz implements Job {
 					.findDirectory(transPath);
 			TransMeta transMeta = kettleDatabaseRepository.loadTransformation(transName, directory,
 					new ProgressNullMonitorListener(), true, null);
+
+			//设置日志输出到表中
+			KettleLogSetting.setTransLog(transMeta);
+
 			Trans trans = new Trans(transMeta);
 			trans.setLogLevel(LogLevel.DEBUG);
 			if (StringUtils.isNotEmpty(logLevel)) {
@@ -184,6 +181,10 @@ public class TransQuartz implements Job {
 			String userId, String logLevel, String logFilePath)
 			throws KettleXMLException, KettleMissingPluginsException {
 		TransMeta transMeta = new TransMeta(transPath);
+
+		//设置日志输出到表中
+		KettleLogSetting.setTransLog(transMeta);
+
 		Trans trans = new Trans(transMeta);
 		trans.setLogLevel(LogLevel.DEBUG);
 		if (StringUtils.isNotEmpty(logLevel)) {

@@ -1,20 +1,15 @@
 package com.leadingsoft.web.quartz;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Date;
-
+import com.leadingsoft.common.kettle.environment.KettleLogSetting;
+import com.leadingsoft.common.kettle.repository.RepositoryUtil;
+import com.leadingsoft.common.toolkit.Constant;
+import com.leadingsoft.core.model.KJobMonitor;
+import com.leadingsoft.core.model.KJobRecord;
+import com.leadingsoft.core.model.KRepository;
+import com.leadingsoft.web.quartz.model.DBConnectionModel;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.beetl.sql.core.ClasspathLoader;
-import org.beetl.sql.core.ConnectionSource;
-import org.beetl.sql.core.ConnectionSourceHelper;
-import org.beetl.sql.core.DSTransactionManager;
-import org.beetl.sql.core.Interceptor;
-import org.beetl.sql.core.SQLLoader;
-import org.beetl.sql.core.SQLManager;
-import org.beetl.sql.core.UnderlinedNameConversion;
+import org.beetl.sql.core.*;
 import org.beetl.sql.core.db.DBStyle;
 import org.beetl.sql.core.db.MySqlStyle;
 import org.beetl.sql.ext.DebugInterceptor;
@@ -33,12 +28,10 @@ import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import com.leadingsoft.common.kettle.repository.RepositoryUtil;
-import com.leadingsoft.common.toolkit.Constant;
-import com.leadingsoft.core.model.KJobMonitor;
-import com.leadingsoft.core.model.KJobRecord;
-import com.leadingsoft.core.model.KRepository;
-import com.leadingsoft.web.quartz.model.DBConnectionModel;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Date;
 
 public class JobQuartz implements Job {
 	
@@ -112,6 +105,10 @@ public class JobQuartz implements Job {
 					.findDirectory(jobPath);
 			JobMeta jobMeta = kettleDatabaseRepository.loadJob(jobName, directory, new ProgressNullMonitorListener(),
 					null);
+
+			//设置日志输出到表中
+			KettleLogSetting.setJobsLog(jobMeta);
+
 			org.pentaho.di.job.Job job = new org.pentaho.di.job.Job(kettleDatabaseRepository, jobMeta);
 			job.setDaemon(true);
 			job.setLogLevel(LogLevel.DEBUG);
@@ -162,9 +159,33 @@ public class JobQuartz implements Job {
 		}
 	}
 
+	/**
+	 * @Title runRepositoryJob
+	 * @Description 运行文件中的作业
+	 * @param DbConnectionObject
+	 *            数据库连接对象
+	 * @param jobId
+	 *            作业ID
+	 * @param jobPath
+	 *            作业在资源库中的路径信息
+	 * @param jobName
+	 *            作业名称
+	 * @param userId
+	 *            作业归属者ID
+	 * @param logLevel
+	 *            作业的日志等级
+	 * @param logFilePath
+	 *            作业日志保存的根路径
+	 * @throws KettleException
+	 * @return void
+	 */
 	public void runFileJob(Object DbConnectionObject, String jobId, String jobPath, String jobName,
 			String userId, String logLevel, String logFilePath) throws KettleXMLException,KettleMissingPluginsException {
 		JobMeta jobMeta = new JobMeta(jobPath, null);
+
+		//设置日志输出到表中
+		KettleLogSetting.setJobsLog(jobMeta);
+
 		org.pentaho.di.job.Job job = new org.pentaho.di.job.Job(null, jobMeta);
 		job.setDaemon(true);
 		job.setLogLevel(LogLevel.DEBUG);
@@ -228,6 +249,7 @@ public class JobQuartz implements Job {
 			throws IOException, SQLException {
 		// 将日志信息写入文件
 		FileUtils.writeStringToFile(new File(kJobRecord.getLogFilePath()), logText, Constant.DEFAULT_ENCODING, false);
+
 		// 写入转换运行记录到数据库
 		DBConnectionModel DBConnectionModel = (DBConnectionModel) DbConnectionObject;
 		ConnectionSource source = ConnectionSourceHelper.getSimple(DBConnectionModel.getConnectionDriveClassName(), 
