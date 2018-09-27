@@ -1,25 +1,37 @@
 # kettle-web
-将kettle集成值web应用中，不再需打开kettle窗口运行
+一个kettle 作业管理和监控工具，支持任务调度
 
 支持kettle7.0.0.0.25版本
 
-### 启动
-> 1. 下载项目
-> 2. 导入idea
-> 3. 等待maven下载完包
-> 4. 等
-> 5. 等
-> 6. 一直等到项目不报错了
-> 7. 导入数据库文件(mysql)
-> 8. 配置数据库连接（resource目录下面）
-> 9. 扔到Tomcat里面进行启动
-
 ### 技术
-    spring + mvc + beetlsql
-    任务调度：quartz
+    技术框架：Spring mvc + beetlsql
+    任务调度：Quartz
+    日志管理：Logj4
+    前端框架：H+ UI主题框架
+    项目管理：Maven 4.0.0
+    ETL工具：kettle 7.0
+    
 
 ### 说明
-本项目fork自码云的开源项目[kettle-master](https://gitee.com/1967988842/kettle-master)。非常感谢[@潇洒的吸血鬼](https://gitee.com/1967988842)提供的帮助！！！
+本项目是在开源项目[kettle-master](https://gitee.com/1967988842/kettle-master)的集成上做了二次开发。非常感谢[@潇洒的吸血鬼](https://gitee.com/1967988842)提供的帮助！！！
+
+#### 新增功能说明
+> 1. 用户管理中新增【添加用户】和【编辑用户功能】
+> 2. 新增定时策略管理模块
+> 3. 新增转换日志和转换步骤日志查看功能（相关日志通过java程序自定记录，不需要在转换中单独设置）
+> 4. 新增作业日志和作业步骤日志查看功能（相关日志通过java程序自定记录，不需要在转换中单独设置）
+> 5. 优化UI界面
+> 6. 修复部分BUGS
+
+#### 后续计划
+> 1. 添加对运行的服务器状态监控
+> 2. 考虑实现通过程序往作业中加入检查点，当作业运行出错时能够通过检查点重新启动作业
+> 3. 支持向转换和作业中传递参数
+> 4. 前端UI改造
+> 5. ...
+
+目前还有许多问题，暂时没时间处~0.0~
+
 
 
 > [[1]: https://github.com/uKettle/kettle](https://github.com/uKettle/kettle)
