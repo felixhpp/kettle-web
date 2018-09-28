@@ -136,7 +136,7 @@
                 <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i></button>
                 <nav class="page-tabs J_menuTabs">
                     <div class="page-tabs-content">
-                        <a href="view/indexUI.shtml" class="active J_menuTab" data-id="view/mainUI.shtml">首页</a>
+                        <a href="javascript:;" class="active J_menuTab" data-id="view/mainUI.shtml">首页</a>
                     </div>
                 </nav>
                 <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i></button>
@@ -157,7 +157,7 @@
                 </div>
             </div>
             <div class="row J_mainContent" id="content-main">
-                <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="view/mainUI.shtml" frameborder="0" seamless></iframe>
+                <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="view/mainUI.shtml" frameborder="0" data-id="view/mainUI.shtml" seamless></iframe>
             </div>
             <div class="footer">
                 <div class="pull-right">&copy; 2017</div>
@@ -186,6 +186,68 @@
         }else {
             //登出
         };
+
+        $("#userInfo").on("mouseover", function () {
+            $(this).find(".kw-nav-child").show();
+            $(this).find("span.kw-nav-more").removeClass("fa-caret-down").addClass("fa-caret-up");
+        }).on("mouseout", function () {
+            $(this).find(".kw-nav-child").hide();
+            $(this).find("span.kw-nav-more").removeClass("fa-caret-up").addClass("fa-caret-down");
+        });
+
+        //全屏和退出全屏
+        var intips = '';
+        $("li[data-minfo]").hover(function () {
+            intips = layer.tips($(this).data('minfo'), $(this), {tips: [3, '#424242']});
+        }, function () {
+            layer.close(intips);
+        });
+
+        $(".kw-fullscreen").click(function () {
+            if($(this).find('i').hasClass('glyphicon-fullscreen')){
+                full();
+                $(this).data('minfo','退出全屏').find('i')
+                    .removeClass('glyphicon-fullscreen').addClass('glyphicon-resize-small');
+            }else {
+                exitfull();
+                $(this).data('minfo','全屏').find('i')
+                    .removeClass('glyphicon-resize-small').addClass('glyphicon-fullscreen');
+            }
+        });
+
+
+        //全屏
+        function full() {
+            var el = document.documentElement;
+            var rfs = el.requestFullScreen || el.webkitRequestFullScreen ||
+                el.mozRequestFullScreen || el.msRequestFullScreen;
+            if (rfs) { //typeof rfs != "undefined" && rfs
+                rfs.call(el);
+            } else if (typeof window.ActiveXObject != "undefined") {
+                //for IE，这里其实就是模拟了按下键盘的F11，使浏览器全屏
+                var wscript = new ActiveXObject("WScript.Shell");
+                if (wscript != null) {
+                    wscript.SendKeys("{F11}");
+                }
+            }
+        };
+
+        //退出全屏
+        function exitfull() {
+            var el = document;
+            var cfs = el.cancelFullScreen || el.webkitCancelFullScreen ||
+                el.mozCancelFullScreen || el.exitFullScreen;
+            if (cfs) { //typeof cfs != "undefined" && cfs
+                cfs.call(el);
+            } else if (typeof window.ActiveXObject != "undefined") {
+                //for IE，这里和fullScreen相同，模拟按下F11键退出全屏
+                var wscript = new ActiveXObject("WScript.Shell");
+                if (wscript != null) {
+                    wscript.SendKeys("{F11}");
+                }
+            }
+        };
+
     </script>
 </body>
 </html>

@@ -19,11 +19,12 @@
     <link href="static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
     <link href="static/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <link href="static/css/animate.css" rel="stylesheet">
+    <link href="static/css/plugins/cron-generator/cronGen.css" rel="stylesheet">
     <link href="static/css/style.css?v=4.1.0" rel="stylesheet">
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
-    <div class="ibox float-e-margins">
+    <div class="ibox kw-ibox float-e-margins">
         <div class="ibox-title">
             <h5>定时策略</h5>
             <div class="ibox-tools">
@@ -37,9 +38,17 @@
         </div>
         <div class="ibox-content">
             <div class="col-sm-6 float-left">
-                <a href="view/quartz/addUI.shtml" class="btn btn-w-m btn-info" type="button">
+                <%--<a href="view/quartz/addUI.shtml" class="btn btn-w-m btn-info" type="button">--%>
+                    <%--<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增定时策略--%>
+                <%--</a>--%>
+                <button onclick="addQuartzClick()" class="btn btn-w-m btn-info" type="button">
                     <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增定时策略
-                </a>
+                </button>
+            </div>
+            <div class="right">
+                <button onclick="quartzListRefresh()" class="btn btn-w-m btn-info" type="button">
+                    <i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;刷新列表
+                </button>
             </div>
             <table id="quartzList" data-toggle="table"
                    data-url="quartz/getList.shtml"
@@ -50,7 +59,7 @@
                 <tr>
                     <th data-field="quartzId">策略编号</th>
                     <th data-field="quartzDescription">策略描述</th>
-                    <th data-field="quartzCron">定时策略</th>
+                    <th data-field="quartzCron">定时策略表达式</th>
                     <th data-field="action" data-formatter="actionFormatter"
                         data-events="actionEvents">操作</th>
                 </tr>
@@ -61,7 +70,11 @@
 </div>
 <!-- 全局js -->
 <script src="static/js/jquery.min.js?v=2.1.4"></script>
+<script src="static/js/plugins/cron-generator/cronGen.js"></script>
 <script src="static/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- jQuery Validation plugin javascript-->
+<script src="static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="static/js/plugins/validate/messages_zh.min.js"></script>
 <!-- layer javascript -->
 <script src="static/js/plugins/layer/layer.min.js"></script>
 <!-- 自定义js -->
@@ -70,59 +83,7 @@
 <script src="static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
 <script src="static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
-<script>
-    function actionFormatter(value, row, index) {
-        return ['<a class="btn btn-primary btn-xs" id="edit" type="button"><i class="fa fa-paste" aria-hidden="true"></i>&nbsp;编辑</a>',
-            '&nbsp;&nbsp;',
-            '<a class="btn btn-primary btn-xs" id="delete" type="button"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;删除</a>'].join('');
-    };
-    window.actionEvents = {
-        'click #edit' : function(e, value, row, index) {
-            var quartzId = row.quartzId;
-            location.href = "view/quartz/editUI.shtml?quartzId=" + quartzId;
-        },
-        'click #delete' : function(e, value, row, index) {
-            layer.confirm('确定删除该单位？', {
-                    btn: ['确定', '取消']
-                },
-                function(index){
-                    layer.close(index);
-                    $.ajax({
-                        type: 'POST',
-                        async: true,
-                        url: 'quartz/delete.shtml',
-                        data: {
-                            "quartzId": row.quartzId
-                        },
-                        success: function (data) {
-                            location.replace(location.href);
-                        },
-                        error: function () {
-                            alert("系统出现问题，请联系管理员");
-                        },
-                        dataType: 'json'
-                    });
-                },
-                function(){
-                    layer.msg('取消操作');
-                }
-            );
-        },
-    };
-
-    function queryParams(params) {
-        var temp = { limit: 10, offset: params.offset };
-        return temp;
-    };
-
-    function getIdSelections() {
-        var $userList = $('#userList');
-        return $.map($userList.bootstrapTable('getSelections'), function (row) {
-            return row.quartzId
-        });
-    }
-
-
-</script>
+<script src="static/js/my/cronValidate.js"></script>
+<script src="static/js/my/quartz.js"></script>
 </body>
 </html>

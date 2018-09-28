@@ -1,5 +1,6 @@
 /**
  * 在引用该js之前需要先引用jquery.js 和jQuery.validate.js
+ * by felixhpp in 2018-09-28
  */
 //自定义cron表达式验证内容
 jQuery.validator.addMethod("cronValidate",function(value, element){

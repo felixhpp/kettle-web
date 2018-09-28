@@ -44,9 +44,7 @@ public class JobMonitorService {
 	
 	/**
 	 * @Title getList
-	 * @Description 获取作业监控不分页列表
-	 * @param start 起始行数
-	 * @param size 每页数据条数
+	 * @Description 获取作业监控不分页列表(top 5)
 	 * @param uId 用户ID
 	 * @return
 	 * @return BootTablePage
@@ -60,6 +58,8 @@ public class JobMonitorService {
 		List<KJobMonitor> newKJobMonitorList = new ArrayList<KJobMonitor>();
 		if (kJobMonitorList.size() >= 5){
 			newKJobMonitorList = kJobMonitorList.subList(0, 5);	
+		}else {
+			newKJobMonitorList = kJobMonitorList;
 		}
 		BootTablePage bootTablePage = new BootTablePage();
 		bootTablePage.setRows(newKJobMonitorList);

@@ -16,7 +16,7 @@
 </head>
 <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="ibox float-e-margins">
+        <div class="ibox kw-ibox float-e-margins">
             <div class="ibox-title">
                 <h5>用户列表</h5>
                 <div class="ibox-tools">
@@ -29,13 +29,13 @@
                 </div>
             </div>
             <div class="ibox-content">
-            	<div class="col-sm-6 float-left">	
-	            	<a href="view/user/addUI.shtml" class="btn btn-w-m btn-info" type="button">
-	            		<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增用户
-            		</a>
-                    <%--<button id="addUserBtn" class="btn btn-w-m btn-info" type="button">--%>
-                        <%--<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增用户--%>
-                    <%--</button>--%>
+            	<div class="col-sm-6 float-left">
+	            	<%--<a href="view/user/addUI.shtml" class="btn btn-w-m btn-info" type="button">--%>
+	            		<%--<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增用户--%>
+            		<%--</a>--%>
+                    <button id="addUserBtn" onclick="addUserClick()" class="btn btn-w-m btn-info" type="button">
+                        <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增用户
+                    </button>
             	</div>
                 <table id="userList" data-toggle="table"
 					data-url="user/getList.shtml"
@@ -60,6 +60,9 @@
 
 	<!-- 全局js -->
     <script src="static/js/jquery.min.js?v=2.1.4"></script>
+    <!-- jQuery Validation plugin javascript-->
+    <script src="static/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="static/js/plugins/validate/messages_zh.min.js"></script>
     <script src="static/js/bootstrap.min.js?v=3.3.6"></script>
     <!-- layer javascript -->
     <script src="static/js/plugins/layer/layer.min.js"></script>
@@ -69,72 +72,6 @@
     <script src="static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
-	<script>
-        
-        // $("#addUserBtn").click(function () {
-        //     var curHtml = $("#addUserModal").prop("outerHTML");;
-        //     var index = layer.open({
-        //         type: 1,
-        //         title:"添加用户",
-        //         content: curHtml,
-        //         area: ['80%', '80%'],
-        //         maxmin: true
-        //     });
-        // });
-        
-	    function actionFormatter(value, row, index) {
-	    	return ['<a class="btn btn-primary btn-xs" id="edit" type="button"><i class="fa fa-paste" aria-hidden="true"></i>&nbsp;编辑</a>',
-    			'&nbsp;&nbsp;',
-    			'<a class="btn btn-primary btn-xs" id="delete" type="button"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;删除</a>'].join('');	
-	    };
-	    window.actionEvents = {				
-	    		'click #edit' : function(e, value, row, index) {
-	    			var userId = row.uId;
-	    			location.href = "view/user/editUI.shtml?userId=" + userId;
-	    		},
-	    		'click #delete' : function(e, value, row, index) {
-	    			layer.confirm('确定删除该单位？', {
-	    				  btn: ['确定', '取消'] 
-	    				},
-	    				function(index){
-	    				    layer.close(index);
-	    				    $.ajax({
-	    				        type: 'POST',
-	    				        async: true,
-	    				        url: 'user/delete.shtml',
-	    				        data: {
-	    				            "userId": row.userId          
-	    				        },
-	    				        success: function (data) {
-	    				        	location.replace(location.href); 				        	 
-	    				        },
-	    				        error: function () {
-	    				            alert("系统出现问题，请联系管理员");
-	    				        },
-	    				        dataType: 'json'
-	    				    });
-	    		  		}, 
-	    		  		function(){
-	    		  			layer.msg('取消操作');
-    		  			}
-    		  		);
-	    		},
-	    	};
-		    
-		    function queryParams(params) {
-		    	var temp = { limit: 10, offset: params.offset };
-		        return temp;
-		    };
-		    
-		    function getIdSelections() {
-		    	var $userList = $('#userList');
-		        return $.map($userList.bootstrapTable('getSelections'), function (row) {
-		            return row.userId
-		        });
-		    }
-		    
-		    
-		    
-    </script>
+    <script src="static/js/my/user.js"></script>
 </body>
 </html>

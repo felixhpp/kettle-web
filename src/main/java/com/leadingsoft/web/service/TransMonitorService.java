@@ -44,9 +44,7 @@ public class TransMonitorService {
 	
 	/**
 	 * @Title getList
-	 * @Description 获取不分页列表
-	 * @param start 起始行数
-	 * @param size 每页数据条数
+	 * @Description 获取不分页列表(top 5)
 	 * @param uId 用户ID
 	 * @return
 	 * @return BootTablePage
@@ -60,7 +58,9 @@ public class TransMonitorService {
 		List<KTransMonitor> newKTransMonitorList  = new ArrayList<KTransMonitor>();
 		if (kTransMonitorList.size() >= 5){
 			newKTransMonitorList  = kTransMonitorList.subList(0, 5);	
-		}		
+		}else {
+			newKTransMonitorList = kTransMonitorList;
+		}
 		BootTablePage bootTablePage = new BootTablePage();
 		bootTablePage.setRows(newKTransMonitorList);
 		//bootTablePage.setTotal(5);

@@ -16,7 +16,7 @@
 </head>
 <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="ibox float-e-margins">
+        <div class="ibox kw-ibox float-e-margins">
             <div class="ibox-title">
                 <h5>转换执行日志记录</h5>
                 <div class="ibox-tools">
@@ -36,7 +36,7 @@
             	</div>
             	<div class="right col-sm-6 float-right">	
 	            	<button onclick="search()" class="right btn btn-w-m btn-info" type="button">
-	            		<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;搜索
+	            		<i class="fa fa-search" aria-hidden="true"></i>&nbsp;搜索
             		</button>
             		<div class="right col-sm-7">
                    		<select id="transId" name="transId" class="form-control">

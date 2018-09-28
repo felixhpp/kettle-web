@@ -7,7 +7,7 @@
 	<meta charset="utf-8">
 	<base href="<%=basePath %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>转换监控记录</title>
+    <title>首页</title>
     <link href="static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
     <link href="static/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
@@ -130,9 +130,9 @@
     		</div>
    		</div>
    		<div class="row">
-   			<div class="ibox float-e-margins">
+   			<div class="ibox kw-ibox-wrapper float-e-margins">
 	            <div class="ibox-title">
-	                <h5>转换监控记录</h5>
+	                <h5>转换和作业监控记录</h5>
 	                <div class="ibox-tools">
 	                    <a class="collapse-link">
 	                        <i class="fa fa-chevron-up"></i>

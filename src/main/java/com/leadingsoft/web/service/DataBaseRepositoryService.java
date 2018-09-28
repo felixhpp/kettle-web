@@ -173,10 +173,10 @@ public class DataBaseRepositoryService {
 	/**
 	 * @Title delete
 	 * @Description 删除资源库
-	 * @param kRepository 资源库对象
+	 * @param repositoryId 资源库对象ID
 	 * @ruturn void
 	 */
-	public void delete(KRepository kRepository) {
-		kRepositoryDao.deleteById(kRepository.getRepositoryId());
+	public void delete(Integer repositoryId) {
+		kRepositoryDao.deleteById(repositoryId);
 	}
 }

@@ -3522,12 +3522,12 @@ video {
     background-color: #2f4050;
 }
 
-.wrapper {
-    padding: 0 20px;
+.wrapper,.ibox.kw-ibox-wrapper {
+    padding: 0 15px;
 }
 
 .wrapper-content {
-    padding: 20px;
+    padding: 15px;
 }
 
 #page-wrapper {
@@ -4035,7 +4035,7 @@ code {
     -o-border-image: none;
     border-image: none;
     border-style: solid solid none;
-    border-width: 4px 0px 0;
+    border-width: 0;
     color: inherit;
     margin-bottom: 0;
     padding: 14px 15px 7px;
@@ -4123,6 +4123,8 @@ table.table-mail tr td {
     padding: 0;
 }
 
+
+
 .ibox-tools a {
     cursor: pointer;
     margin-left: 5px;
@@ -4141,6 +4143,16 @@ table.table-mail tr td {
 .ibox .open > .dropdown-menu {
     left: auto;
     right: 0;
+}
+
+.ibox.kw-ibox .ibox-title,.ibox.kw-ibox .ibox-content{
+    border-width: 0;
+}
+.ibox.kw-ibox .ibox-title{
+    border-bottom: 1px solid #f6f6f6;
+}
+.ibox.kw-ibox .ibox-title .ibox-tools{
+    display: none;
 }
 
 
@@ -8015,4 +8027,7 @@ body.skin-3 {
 .kw-nav .kw-nav-item .kw-nav-child>hr{
     margin: 0;
     color: #ddd8e5;
+}
+.kw-modal-box{
+    display: none;
 }

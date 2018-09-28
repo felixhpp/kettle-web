@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <div class="ibox float-e-margins">
+        <div class="ibox kw-ibox float-e-margins">
             <div class="ibox-title">
                 <h5>作业监控记录</h5>
                 <div class="ibox-tools">

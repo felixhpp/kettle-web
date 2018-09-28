@@ -16,9 +16,9 @@
 </head>
 <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="ibox float-e-margins">
+        <div class="ibox kw-ibox float-e-margins">
             <div class="ibox-title">
-                <h5>日志执行日志记录</h5>
+                <h5>作业执行日志记录</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -29,18 +29,22 @@
                 </div>
             </div>
             <div class="ibox-content">
-            	<div class="col-sm-6 float-right">	
-            		<div class="form-group">
-                    	<div class="col-sm-7">
-                    		<select id="jobId" name="jobId" class="form-control">
-	                            <option value="">请选择日志</option>
-	                        </select>
-	                    </div>
-            		</div>  
-	            	<a href="javascript:;" onclick="search()" class="btn btn-w-m btn-info" type="button">
-	            		<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;搜索
-            		</a>
-            	</div>
+                <div class="col-sm-6 float-left">
+                    <a href="view/job/monitor/listUI.shtml" class="btn btn-w-m btn-info" type="button">
+                        <i class="fa fa-reply" aria-hidden="true"></i>&nbsp;返回
+                    </a>
+                </div>
+                <div class="right col-sm-6 float-right">
+                    <button onclick="search()" class="right btn btn-w-m btn-info" type="button">
+                        <i class="fa fa-search" aria-hidden="true"></i>&nbsp;搜索
+                    </button>
+                    <div class="right col-sm-7">
+                        <select id="jobId" name="jobId" class="form-control">
+                            <option value="">请选择作业</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="hidden" id="jobDefaultId" name="jobDefaultId" value="${jobId }">
                 <table id="jobRecordList" data-toggle="table"
 					data-url="job/record/getList.shtml"
 					data-query-params=queryParams data-query-params-type="limit"
@@ -74,6 +78,8 @@
     <script src="static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 	<script>
 		$(document).ready(function () {
+            var $jobDefaultId = $("#jobDefaultId").val();
+
 			$.ajax({
 		        type: 'POST',
 		        async: false,
@@ -89,6 +95,9 @@
 		        },
 		        dataType: 'json'
 		    });
+
+            $("#jobId").find("option[value=" + $jobDefaultId + "]").prop("selected",true);
+            search();
 		});
     	function recordjobFormatter(value, row, index){
     		var recordjob = "";

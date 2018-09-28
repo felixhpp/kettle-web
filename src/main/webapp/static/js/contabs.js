@@ -206,7 +206,12 @@ $(function () {
                         return false;
                     }
                 });
-
+                var marginLeftVal = parseInt($('.page-tabs-content').css('margin-left'));
+                if (marginLeftVal < 0) {
+                    $('.page-tabs-content').animate({
+                        marginLeft: (marginLeftVal + currentWidth) + 'px'
+                    }, "fast");
+                };
                 //  移除当前选项卡
                 $(this).parents('.J_menuTab').remove();
 
@@ -277,12 +282,12 @@ $(function () {
     function refreshTab() {
         var target = $('.J_iframe[data-id="' + $(this).data('id') + '"]');
         var url = target.attr('src');
-//        //显示loading提示
-//        var loading = layer.load();
-//        target.attr('src', url).load(function () {
-//            //关闭loading提示
-//            layer.close(loading);
-//        });
+        //显示loading提示
+        var loading = layer.load();
+        target.attr('src', url).load(function () {
+           //关闭loading提示
+            layer.close(loading);
+        });
     }
 
     $('.J_menuTabs').on('dblclick', '.J_menuTab', refreshTab);

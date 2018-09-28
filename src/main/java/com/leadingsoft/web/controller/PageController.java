@@ -35,17 +35,6 @@ public class PageController {
 		return "repository/list";
 	}
 	
-	@RequestMapping("repository/addUI.shtml")
-	public String repositoryAddUI(){
-		return "repository/add";
-	}
-	
-	@RequestMapping("repository/editUI.shtml")
-	public String repositoryEditUI(Integer repositoryId, Model model){
-		model.addAttribute("repositoryId", repositoryId);
-		return "repository/edit";
-	}
-	
 	/**==========repository end==========**/
 	
 	/**==========job start==========**/
@@ -105,17 +94,6 @@ public class PageController {
 		return "user/list";
 	}
 	
-	@RequestMapping("user/addUI.shtml")
-	public String userAddUI(){
-		return "user/add";
-	}
-	
-	@RequestMapping("user/editUI.shtml")
-	public String userEditUI(Integer userId, Model model){
-		model.addAttribute("uId", userId);
-		return "user/edit";
-	}
-	
 	/**==========user end==========**/
 
 	/**==========quartz start==========**/
@@ -123,17 +101,6 @@ public class PageController {
 	@RequestMapping("quartz/listUI.shtml")
 	public String quartzListUI(){
 		return "quartz/list";
-	}
-
-	@RequestMapping("quartz/addUI.shtml")
-	public String quartzAddUI(){
-		return "quartz/add";
-	}
-
-	@RequestMapping("quartz/editUI.shtml")
-	public String quartzEditUI(Integer quartzId, Model model){
-		model.addAttribute("quartzId", quartzId);
-		return "quartz/edit";
 	}
 
 	/**==========quartz end==========**/
@@ -147,7 +114,8 @@ public class PageController {
 	}
 	
 	@RequestMapping("job/record/listUI.shtml")
-	public String jobRecordListUI(){
+	public String jobRecordListUI(Integer jobId, Model model){
+		model.addAttribute("jobId", jobId);
 		return "record/j-list";
 	}
 	

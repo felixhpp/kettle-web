@@ -94,7 +94,7 @@ public class RepositoryController {
 				}
 			} catch (KettleException e) {
 				e.printStackTrace();
-				return ResultDto.success("fail");
+				return ResultDto.success("fail, message:" + e.getMessage());
 			}
 		}else {
 			return ResultDto.success("fail");
@@ -150,12 +150,12 @@ public class RepositoryController {
 	}
 
 	@RequestMapping("database/delete.shtml")
-	public String delete(KRepository kRepository, HttpServletRequest request){
+	public String delete(Integer repositoryId, HttpServletRequest request){
 		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
-		if(null==kRepository||null==kRepository.getRepositoryId()||"".equals(kRepository.getRepositoryId())){
+		if(null==repositoryId||"".equals(repositoryId)){
 			return ResultDto.fail("资源仓库ID未找到");
 		}
-		dataBaseRepositoryService.delete(kRepository);
+		dataBaseRepositoryService.delete(repositoryId);
 		return ResultDto.success();
 	}
 }
