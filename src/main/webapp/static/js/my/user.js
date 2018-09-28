@@ -19,7 +19,7 @@ var userFormBoxObj =  function () {
         '                <div class="form-group">\n' +
         '                    <label class="col-sm-3 control-label">昵称：</label>\n' +
         '                    <div class="col-sm-7">\n' +
-        '                        <input id="uNickname" name="uNickname" type="text" placeholder="昵称" class="form-control" aria-required="false">\n' +
+        '                        <input id="uNickname" name="uNickname" type="text" placeholder="昵称" class="form-control" aria-required="true">\n' +
         '                    </div>\n' +
         '                </div>\n' +
         '                <div class="form-group">\n' +
@@ -132,6 +132,7 @@ function addFormValidate(obj) {
                 maxlength: 50
             },
             uNickname: {
+                required: true,
                 maxlength: 50
             },
             uPassword: {
@@ -152,6 +153,7 @@ function addFormValidate(obj) {
                 maxlength: icon + "常用邮箱不能超过50个字符"
             },
             uNickname: {
+                required: icon + "请输入用户昵称",
                 maxlength: icon + "昵称不能超过50个字符"
             },
             uPassword: {

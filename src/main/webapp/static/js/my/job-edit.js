@@ -116,12 +116,15 @@ $().ready(function () {
         		var result = JSON.parse(data);
     			if(result.status == "success"){
     				layer.msg('更新成功',{
-            			time: 2000,
+            			time: 1500,
             			icon: 6
             		});              		
             		setTimeout(function(){
             			location.href = "view/job/listUI.shtml";
-            		},2000);
+                        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                        parent.jobListRefresh();
+                        parent.layer.close(index);
+            		},1500);
     			}else {
     				layer.msg(result.message, {icon: 2}); 
     			}

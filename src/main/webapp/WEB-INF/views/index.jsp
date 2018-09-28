@@ -109,7 +109,9 @@
                             <li class="kw-nav-item" id="userInfo">
                                 <a href="javascript:;">
                                     <img src="static/img/user.png" class="kw-nav-img userAvatar" width="30" height="30" style="border-radius: 50%;">
-                                    <span class="adminName" id="loginName">TestUser</span>
+                                    <span class="adminName" id="loginName">
+                                        <%String username = request.getSession().getAttribute("username").toString();%><%=username %>
+                                    </span>
                                     <span class="kw-nav-more fa fa-caret-down"></span>
                                 </a>
                                 <dl class="kw-nav-child kw-anim kw-anim-upbit">

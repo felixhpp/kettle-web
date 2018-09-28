@@ -30,15 +30,21 @@
             </div>
             <div class="ibox-content">
             	<div class="col-sm-6 float-left">	
-	            	<a href="view/trans/rAddUI.shtml" class="btn btn-w-m btn-info" type="button">
-	            		<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增资源库转换
-            		</a>
-            		<a href="view/trans/fAddUI.shtml" class="btn btn-w-m btn-info" type="button">
-	            		<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增文件转换
-            		</a>
+	            	<%--<a href="view/trans/rAddUI.shtml" class="btn btn-w-m btn-info" type="button">--%>
+	            		<%--<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增资源库转换--%>
+            		<%--</a>--%>
+                    <button onclick="addRepositoryTranClick()" class="btn btn-w-m btn-info" type="button">
+                        <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增资源库转换
+                    </button>
+                    <button onclick="addFileTranClick()" class="btn btn-w-m btn-info" type="button">
+                        <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增文件转换
+                    </button>
+            		<%--<a href="view/trans/fAddUI.shtml" class="btn btn-w-m btn-info" type="button">--%>
+	            		<%--<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增文件转换--%>
+            		<%--</a>--%>
             	</div>
             	<div class="right">	
-	            	<button onclick="search()" class="btn btn-w-m btn-info" type="button">
+	            	<button onclick="transListRefresh()" class="btn btn-w-m btn-info" type="button">
 	            		<i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;刷新列表
             		</button>
             	</div>
@@ -169,7 +175,8 @@
 	    		},
 	    		'click #edit' : function(e, value, row, index) {
 	    			var transId = row.transId;
-	    			location.href = "view/trans/editUI.shtml?transId=" + transId;
+	    			//location.href = "view/trans/editUI.shtml?transId=" + transId;
+                    openTranFormIFrame(3, transId);
 	    		},
 	    		'click #delete' : function(e, value, row, index) {
 	    			layer.confirm('确定删除该单位？', {
@@ -185,7 +192,8 @@
 	    				            "transId": row.transId          
 	    				        },
 	    				        success: function (data) {
-	    				        	location.replace(location.href); 				        	 
+	    				        	//location.replace(location.href);
+                                    transListRefresh();
 	    				        },
 	    				        error: function () {
 	    				            alert("系统出现问题，请联系管理员");
@@ -200,15 +208,65 @@
 	    		},
 	    	};
 		    
-		    function queryParams(params) {
+        function queryParams(params) {
 		    	var temp = { limit: 10, offset: params.offset };
 		        return temp;
 		    };
 		    
-		    function search(){
+        function transListRefresh(){
 		    	//$('#transList').bootstrapTable('refresh', "trans/getList.shtml");
                 $('#transList').bootstrapTable('refresh', "trans/getListTransView.shtml");
-		    }
+		    };
+
+        /**
+         *  添加资源库转换
+         */
+        function addRepositoryTranClick() {
+            openTranFormIFrame(1);
+        };
+
+        /**
+         * 添加文件转换
+         */
+        function addFileTranClick() {
+            openTranFormIFrame(2);
+        };
+
+        /**
+         * 以IFrame的方式打开转换表单
+         * @param type 类型 1：新增资源库tran 2:新增文件tran 3: 编辑tran
+         * @param transId 转换ID
+         */
+        function openTranFormIFrame(type, transId) {
+            var url = '';
+            if(type === 1){
+                url = 'view/trans/rAddUI.shtml';
+            }else if(type === 2){
+                url = 'view/trans/fAddUI.shtml';
+            }else if(type === 3){
+                url = 'view/trans/editUI.shtml?transId=' + transId;
+            } else {
+                return;
+            }
+
+            layer.open({
+                type: 2,
+                title: false,
+                area: ['100%', '100%'],
+                maxmin: false,
+                content: url,
+                success: function (layero, index) {
+
+                },
+                btn: ['保存', '取消'],
+                yes: function (index, layero) {
+                    layero.find("iframe")[0].contentWindow.$("#RepositoryTransForm").submit();
+                },
+                btn2: function (index, layero) {
+                    layer.close(index);
+                },
+            });
+        };
     </script>
 </body>
 </html>

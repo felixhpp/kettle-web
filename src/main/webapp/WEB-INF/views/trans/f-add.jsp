@@ -17,7 +17,7 @@
 </head>
 <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="ibox float-e-margins">
+        <div class="ibox kw-ibox float-e-margins">
             <div class="ibox-title">
                 <h5>添加转换</h5>
                 <div class="ibox-tools">
@@ -83,13 +83,7 @@
 	                    </div>
 	                </div>        
 	                <input type="hidden" id="transPath" name="transPath">
-                 	<input type="hidden" id="transType" name="transType" value="2" >       
-	                <div class="form-group">
-	                    <div class="col-sm-9 col-sm-offset-3">
-	                    	<button class="btn btn-w-m btn-primary" type="submit"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;保存</button>
-	                    	<button class="btn btn-w-m btn-primary" type="button" onclick="cancel()"><i class="fa fa-reply" aria-hidden="true"></i>&nbsp;取消</button>
-	                    </div>
-	                </div>
+                 	<input type="hidden" id="transType" name="transType" value="2" >
 	            </form>  
             </div>
         </div>

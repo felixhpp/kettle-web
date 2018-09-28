@@ -162,12 +162,15 @@ $().ready(function () {
         		var result = JSON.parse(data);
     			if(result.status == "success"){
     				layer.msg('添加成功',{
-            			time: 2000,
+            			time: 1500,
             			icon: 6
             		});              		
             		setTimeout(function(){
-            			location.href = "view/trans/listUI.shtml";
-            		},2000);
+            			//location.href = "view/trans/listUI.shtml";
+                        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                        parent.transListRefresh();
+                        parent.layer.close(index);
+            		},1500);
     			}else {
     				layer.msg(result.message, {icon: 2}); 
     			}

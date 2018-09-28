@@ -30,15 +30,21 @@
             </div>
             <div class="ibox-content">
             	<div class="col-sm-6 float-left">	
-	            	<a href="view/job/rAddUI.shtml" class="btn btn-w-m btn-info" type="button">
-	            		<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增资源库作业
-            		</a>
-            		<a href="view/job/fAddUI.shtml" class="btn btn-w-m btn-info" type="button">
-	            		<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增文件作业
-            		</a>
+	            	<%--<a href="view/job/rAddUI.shtml" class="btn btn-w-m btn-info" type="button">--%>
+	            		<%--<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增资源库作业--%>
+            		<%--</a>--%>
+                    <button onclick="addRepositoryJobClick()" class="btn btn-w-m btn-info" type="button">
+                        <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增资源库作业
+                    </button>
+                    <button onclick="addFileJobClick()" class="btn btn-w-m btn-info" type="button">
+                        <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增文件作业
+                    </button>
+            		<%--<a href="view/job/fAddUI.shtml" class="btn btn-w-m btn-info" type="button">--%>
+	            		<%--<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增文件作业--%>
+            		<%--</a>--%>
             	</div>
             	<div class="right">	
-	            	<button onclick="search()" class="btn btn-w-m btn-info" type="button">
+	            	<button onclick="jobListRefresh()" class="btn btn-w-m btn-info" type="button">
 	            		<i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;刷新列表
             		</button>
             	</div>
@@ -168,7 +174,8 @@
 	    		},
 	    		'click #edit' : function(e, value, row, index) {
 	    			var jobId = row.jobId;
-	    			location.href = "view/job/editUI.shtml?jobId=" + jobId;
+	    			//location.href = "view/job/editUI.shtml?jobId=" + jobId;
+                    openJobFormIFrame(3, jobId);
 	    		},
 	    		'click #delete' : function(e, value, row, index) {
 	    			layer.confirm('确定删除该单位？', {
@@ -184,7 +191,8 @@
 	    				            "jobId": row.jobId          
 	    				        },
 	    				        success: function (data) {
-	    				        	location.replace(location.href); 				        	 
+	    				        	//location.replace(location.href);
+                                    jobListRefresh();
 	    				        },
 	    				        error: function () {
 	    				            alert("系统出现问题，请联系管理员");
@@ -204,9 +212,52 @@
 		        return temp;
 		    };
 		    		    
-		    function search(){
+		    function jobListRefresh(){
 		    	$('#jobList').bootstrapTable('refresh', "job/getListJobView.shtml");
-		    }
+		    };
+		    
+		    function addRepositoryJobClick() {
+                openJobFormIFrame(1);
+            };
+		    
+		    function addFileJobClick() {
+                openJobFormIFrame(2);
+            };
+        /**
+         * 以IFrame的方式打开作业表单
+         * @param type 类型 1：新增资源库job 2:新增文件job 3: 编辑job
+         * @param jobId 作业ID
+         */
+        function openJobFormIFrame(type, jobId) {
+            var url = '';
+            if(type === 1){
+                url = 'view/job/rAddUI.shtml';
+            }else if(type === 2){
+                url = 'view/job/fAddUI.shtml';
+            }else if(type === 3){
+                url = 'view/job/editUI.shtml?jobId=' + jobId;
+            } else {
+                return;
+            }
+
+            layer.open({
+                type: 2,
+                title: false,
+                area: ['100%', '100%'],
+                maxmin: false,
+                content: url,
+                success: function (layero, index) {
+
+                },
+                btn: ['保存', '取消'],
+                yes: function (index, layero) {
+                    layero.find("iframe")[0].contentWindow.$("#RepositoryJobForm").submit();
+                },
+                btn2: function (index, layero) {
+                    layer.close(index);
+                },
+            });
+        };
     </script>
 </body>
 </html>

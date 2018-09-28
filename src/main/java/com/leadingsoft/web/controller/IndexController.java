@@ -1,8 +1,9 @@
 package com.leadingsoft.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.leadingsoft.common.toolkit.Constant;
+import com.leadingsoft.core.model.KUser;
+import com.leadingsoft.web.service.UserService;
+import com.leadingsoft.web.utils.JsonUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,10 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.leadingsoft.common.toolkit.Constant;
-import com.leadingsoft.core.model.KUser;
-import com.leadingsoft.web.service.UserService;
-import com.leadingsoft.web.utils.JsonUtils;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/index/")
@@ -39,6 +38,7 @@ public class IndexController {
 			KUser u = userService.login(kUser);
 			if (null != u){
 				request.getSession().setAttribute(Constant.SESSION_ID, u);
+				request.getSession().setAttribute("username", u.getuNickname());
 				return "redirect:/view/indexUI.shtml";
 			}
 			attr.addFlashAttribute("errorMsg", "账号或密码错误");
