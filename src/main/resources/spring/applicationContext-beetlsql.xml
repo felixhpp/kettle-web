@@ -37,7 +37,7 @@
 	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->
 	<bean name="beetlSqlScannerConfigurer" class="org.beetl.sql.ext.spring4.BeetlSqlScannerConfigurer">
 	    <!-- 哪些类可以自动注入 -->
-	    <property name="basePackage" value="com.leadingsoft.core.mapper"/>
+	    <property name="basePackage" value="indi.felix.kw.core.mapper"/>
 	    <!-- 通过类后缀 来自动注入Dao -->
 	    <property name="daoSuffix" value="Dao"/>
 	    <property name="sqlManagerFactoryBeanName" value="sqlManagerFactoryBean"/>

@@ -54,7 +54,7 @@ if(window != window.parent){
         </div>
     </form>
 </div>
-<div class="copyright">2017 &copy; D-Data By LeadingSoft.</div>
+<div class="copyright">2018 &copy; Kettle-web By felixhpp@163.com.</div>
 <script src="static/js/jquery.min.js?v=2.1.4"></script>
 <script src="static/js/bootstrap.min.js?v=3.3.6"></script>
 <script src="static/lib/jquery-backstretch/jquery.backstretch.min.js" type="text/javascript"></script>

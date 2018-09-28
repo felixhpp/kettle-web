@@ -162,7 +162,7 @@
                 <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="view/mainUI.shtml" frameborder="0" data-id="view/mainUI.shtml" seamless></iframe>
             </div>
             <div class="footer">
-                <div class="pull-right">&copy; 2017</div>
+                <div class="pull-right">2018 &copy; Kettle-web By felixhpp.</div>
             </div>
         </div>
         <!--右侧部分结束-->

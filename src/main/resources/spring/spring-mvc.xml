@@ -11,7 +11,7 @@
 						http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
     <!-- 扫描包 -->
-    <context:component-scan base-package="com.leadingsoft.web.controller" />    
+    <context:component-scan base-package="indi.felix.kw.web.controller" />
     <!-- 上传文件配置 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="defaultEncoding" value="utf-8" />
@@ -42,14 +42,14 @@
     <!-- 默认配置 -->
     <mvc:annotation-driven>
     	<mvc:message-converters>
-			<bean class="com.leadingsoft.core.conf.UTF8StringHttpMessageConverter" />
+			<bean class="indi.felix.kw.core.conf.UTF8StringHttpMessageConverter" />
 		</mvc:message-converters>
     </mvc:annotation-driven>
     <!-- 拦截器配置 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
-			<bean class="com.leadingsoft.core.conf.LoginInterceptor"/>
+			<bean class="indi.felix.kw.core.conf.LoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
 </beans>
