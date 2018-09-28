@@ -1,6 +1,7 @@
 package indi.felix.kw.common.kettle;
 
 import indi.felix.kw.common.kettle.environment.KettleLogSetting;
+import indi.felix.kw.common.toolkit.MD5Utils;
 import net.sf.json.JSONArray;
 import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.di.core.ProgressNullMonitorListener;
@@ -40,7 +41,9 @@ public class Main {
         }
         RepositoryDirectoryInterface jobDirectory = repository.loadRepositoryDirectoryTree().findDirectory("/");
         //runTranslate(repository, jobDirectory, "test111");
-        runJob(repository, jobDirectory, "job1");
+        //runJob(repository, jobDirectory, "job1");
+		String ps = MD5Utils.Encrypt("admin", true);
+		System.out.println(ps);
 	}
 
 	public static void runTranslate(KettleDatabaseRepository repository, RepositoryDirectoryInterface directory, String transName) throws KettleException{

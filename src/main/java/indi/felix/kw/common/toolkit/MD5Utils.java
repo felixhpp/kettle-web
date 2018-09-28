@@ -6,7 +6,7 @@ import org.apache.commons.lang.StringUtils;
 
 public class MD5Utils {
 
-	private static String salt = "leadingsoft"; 
+	private static String salt = "felixhpp.kw";
 	
 	/**
 	 * 加密字符串

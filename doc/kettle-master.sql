@@ -302,7 +302,7 @@ CREATE TABLE `k_user` (
 -- ----------------------------
 -- Records of k_user
 -- ----------------------------
-INSERT INTO `k_user` VALUES ('1', 'admin', null, null, 'admin', 'cc9e6ea0462b98fe1d3cb09c2b46a838', null, null, null, null, '1');
+INSERT INTO `k_user` VALUES ('1', 'admin', null, null, 'admin', '13a448d9d9ea74ad3bb528de2ecae11f', null, null, null, null, '1');
 
 -- ----------------------------
 -- Table structure for k_trans_log
