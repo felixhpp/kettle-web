@@ -106,7 +106,8 @@
     <script src="static/js/plugins/layer/layer.min.js"></script>
     <!-- 自定义js -->
     <script src="static/js/content.js?v=1.0.0"></script>    
-	<script src="static/js/plugins/jsTree/jstree.min.js"></script>	  
+	<script src="static/js/plugins/jsTree/jstree.min.js"></script>
+	<script src="static/js/my/kw-utils.js"></script>
 	<script src="static/js/my/r-trans-add.js"></script>   
 </body>
 </html>

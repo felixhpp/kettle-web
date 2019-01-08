@@ -24,7 +24,7 @@ public class QuartzController {
 	@RequestMapping("getSimpleList.shtml")
 	public String simpleList(HttpServletRequest request){
 		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
-		return JsonUtils.objectToJson(quartzService.getList(kUser.getuId()));
+		return ResultDto.success(quartzService.getList(kUser.getuId()));
 	}
 
 
@@ -33,7 +33,7 @@ public class QuartzController {
 	public String getList(Integer offset, Integer limit, HttpServletRequest request){
 		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
 		BootTablePage list = quartzService.getList(offset, limit, kUser.getuId());
-		return JsonUtils.objectToJson(list);
+		return ResultDto.success(list);
 	}
 
 	@RequestMapping("insert.shtml")

@@ -2,9 +2,9 @@ package indi.felix.kw.web.controller;
 
 
 import indi.felix.kw.common.toolkit.Constant;
+import indi.felix.kw.core.dto.ResultDto;
 import indi.felix.kw.core.model.KUser;
 import indi.felix.kw.web.service.UserService;
-import indi.felix.kw.web.utils.JsonUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,9 +27,9 @@ public class IndexController {
 	public String isAdmin(HttpServletRequest request){
 		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
 		if (null != kUser && userService.isAdmin(kUser.getuId())){
-			return JsonUtils.objectToJson(true);
+			return ResultDto.success(true);
 		}
-		return JsonUtils.objectToJson(false);
+		return ResultDto.success(false);
 	}
 	
 	@RequestMapping("login.shtml")

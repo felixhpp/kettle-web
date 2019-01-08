@@ -7,7 +7,6 @@ import indi.felix.kw.core.dto.ResultDto;
 import indi.felix.kw.core.model.KTrans;
 import indi.felix.kw.core.model.KUser;
 import indi.felix.kw.web.service.TransService;
-import indi.felix.kw.web.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,20 +27,20 @@ public class TransController {
 	@RequestMapping("getSimpleList.shtml")
 	public String getSimpleList(HttpServletRequest request){
 		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
-		return JsonUtils.objectToJson(transService.getList(kUser.getuId()));
+		return ResultDto.success(transService.getList(kUser.getuId()));
 	}
 	
 	@RequestMapping("getList.shtml")
 	public String getList(Integer offset, Integer limit, HttpServletRequest request){
 		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
 		BootTablePage list = transService.getList(offset, limit, kUser.getuId());
-		return JsonUtils.objectToJson(list);
+		return ResultDto.success(list);
 	}
 	@RequestMapping("getListTransView.shtml")
 	public  String getListTransView(Integer offset, Integer limit, HttpServletRequest request){
 		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
 		BootTablePage list = transService.getListTransView(offset, limit, kUser.getuId());
-		return JsonUtils.objectToJson(list);
+		return ResultDto.success(list);
 	}
 	
 	@RequestMapping("uploadTrans.shtml")

@@ -8031,3 +8031,6 @@ body.skin-3 {
 .kw-modal-box{
     display: none;
 }
+.kw-table.table>thead>tr>th {
+    /*border-bottom: 0px;*/
+}

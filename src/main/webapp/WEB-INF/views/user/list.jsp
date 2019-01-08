@@ -30,30 +30,11 @@
             </div>
             <div class="ibox-content">
             	<div class="col-sm-6 float-left">
-	            	<%--<a href="view/user/addUI.shtml" class="btn btn-w-m btn-info" type="button">--%>
-	            		<%--<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增用户--%>
-            		<%--</a>--%>
-                    <button id="addUserBtn" onclick="addUserClick()" class="btn btn-w-m btn-info" type="button">
+                    <button id="addUserBtn" class="btn btn-w-m btn-info" type="button">
                         <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增用户
                     </button>
             	</div>
-                <table id="userList" data-toggle="table"
-					data-url="user/getList.shtml"
-					data-query-params=queryParams data-query-params-type="limit"
-					data-pagination="true"
-					data-side-pagination="server" data-pagination-loop="false">
-					<thead>
-						<tr>
-							<th data-field="uId">用户编号</th>
-							<th data-field="uAccount">用户账号</th>
-							<th data-field="uNickname">用户昵称</th>
-							<th data-field="uEmail">用户邮箱</th>
-							<th data-field="editTime">用户更新时间</th>
-							<th data-field="action" data-formatter="actionFormatter"
-								data-events="actionEvents">操作</th>
-						</tr>
-					</thead>
-				</table>
+                <table id="userList"></table>
             </div>
         </div>
 	</div>
@@ -72,6 +53,7 @@
     <script src="static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="static/js/my/kw-utils.js"></script>
     <script src="static/js/my/user.js"></script>
 </body>
 </html>

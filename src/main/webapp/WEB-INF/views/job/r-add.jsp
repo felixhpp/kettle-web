@@ -93,7 +93,6 @@
 	                <input type="hidden" name="jobType" value="1" id="jobType">
 	            </form>  
             </div>
-			<>
         </div>
 	</div>
 	<!-- 全局js -->
@@ -108,6 +107,7 @@
     <!-- 自定义js -->
     <script src="static/js/content.js?v=1.0.0"></script>    
 	<script src="static/js/plugins/jsTree/jstree.min.js"></script>	  
-	<script src="static/js/my/r-job-add.js"></script>   
+	<script src="static/js/my/r-job-add.js"></script>
+	<script src="static/js/my/kw-utils.js"></script>
 </body>
 </html>

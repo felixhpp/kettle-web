@@ -90,14 +90,14 @@ public class RepositoryController {
 				if (dataBaseRepositoryService.ckeck(kRepository)){
 					return ResultDto.success("success");
 				}else {
-					return ResultDto.success("fail");	
+					return ResultDto.fail("fail");
 				}
 			} catch (KettleException e) {
 				e.printStackTrace();
-				return ResultDto.success("fail, message:" + e.getMessage());
+				return ResultDto.fail("fail, message:" + e.getMessage());
 			}
 		}else {
-			return ResultDto.success("fail");
+			return ResultDto.fail("fail");
 		}		
 	}
 	
@@ -105,7 +105,7 @@ public class RepositoryController {
 	public String getSimpleList(HttpServletRequest request){
 		try {
 			KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
-			return JsonUtils.objectToJson(dataBaseRepositoryService.getList(kUser.getuId()));
+			return ResultDto.success(dataBaseRepositoryService.getList(kUser.getuId()));
 		} catch (KettleException e) {
 			e.printStackTrace();
 			return null;
@@ -116,18 +116,18 @@ public class RepositoryController {
 	public String getList(Integer offset, Integer limit, HttpServletRequest request){
 		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
 		BootTablePage list = null;
-		list = dataBaseRepositoryService.getList(offset, limit, kUser.getuId());					
-		return JsonUtils.objectToJson(list);		
+		list = dataBaseRepositoryService.getList(offset, limit, kUser.getuId());
+		return ResultDto.success(list);
 	}
 	
 	@RequestMapping("database/getType.shtml")
 	public String getType(){		
-		return JsonUtils.objectToJson(dataBaseRepositoryService.getRepositoryTypeList());
+		return ResultDto.success(dataBaseRepositoryService.getRepositoryTypeList());
 	}
 	
 	@RequestMapping("database/getAccess.shtml")
 	public String getAccess(){
-		return JsonUtils.objectToJson(dataBaseRepositoryService.getAccess());
+		return ResultDto.success(dataBaseRepositoryService.getAccess());
 	}
 	
 	@RequestMapping("database/getKRepository.shtml")

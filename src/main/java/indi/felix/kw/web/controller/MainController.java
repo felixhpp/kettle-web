@@ -8,7 +8,6 @@ import indi.felix.kw.web.service.JobMonitorService;
 import indi.felix.kw.web.service.JobService;
 import indi.felix.kw.web.service.TransMonitorService;
 import indi.felix.kw.web.service.TransService;
-import indi.felix.kw.web.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,7 +46,7 @@ public class MainController {
 		Integer allMonitorTrans = transMonitorService.getAllMonitorTrans(kUser.getuId());
 		Integer allMonitorJob = jobMonitorService.getAllMonitorJob(kUser.getuId());
 		Integer allRuning = allMonitorTrans + allMonitorJob; 
-		return JsonUtils.objectToJson(allRuning);
+		return ResultDto.success(allRuning);
 	}
 	
 	/**
@@ -61,7 +60,7 @@ public class MainController {
 	public String getTransList(HttpServletRequest request){
 		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
 		BootTablePage list = transMonitorService.getList(kUser.getuId());
-		return JsonUtils.objectToJson(list);
+		return ResultDto.success(list);
 	}
 	
 	/**
@@ -75,7 +74,7 @@ public class MainController {
 	public String getJobList(HttpServletRequest request){
 		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
 		BootTablePage list = jobMonitorService.getList(kUser.getuId());
-		return JsonUtils.objectToJson(list);
+		return ResultDto.success(list);
 	}
 	
 	/**

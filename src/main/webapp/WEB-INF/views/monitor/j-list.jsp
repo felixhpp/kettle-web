@@ -75,22 +75,8 @@
 	            		<i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;刷新列表
             		</button>
             	</div>
-                <table id="jobMonitorList" data-toggle="table"
-					data-url="job/monitor/getList.shtml"
-					data-query-params=queryParams data-query-params-type="limit"
-					data-pagination="true"
-					data-side-pagination="server" data-pagination-loop="false">
-					<thead>
-						<tr>
-							<th data-field="monitorId">记录编号</th>
-							<th data-field="monitorJob" data-formatter="MonitorJobFormatter">作业名称</th>
-							<th data-field="monitorSuccess">作业执行成功次数</th>
-							<th data-field="monitorFail">作业执行失败次数</th>
-							<th data-field="action" data-formatter="actionFormatter"
-								data-events="actionEvents">操作</th>
-						</tr>
-					</thead>
-				</table>
+                <table id="jobMonitorList"></table>
+
             </div>
         </div>
 	</div>
@@ -105,85 +91,77 @@
     <script src="static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="static/js/my/kw-utils.js"></script>
 	<script>
 		$(document).ready(function () {
-			$.ajax({
-		        type: 'POST',
-		        async: false,
-		        url: 'job/monitor/getAllMonitorJob.shtml',
-		        data: {},
-		        success: function (data) {
-		        	$("#alljob").text(data);
-		        },
-		        error: function () {
-		            alert("请求失败！请刷新页面重试");
-		        },
-		        dataType: 'json'
-		    });	 
-			$.ajax({
-		        type: 'POST',
-		        async: false,
-		        url: 'job/monitor/getAllSuccess.shtml',
-		        data: {},
-		        success: function (data) {
-		        	$("#allSuccess").text(data);
-		        },
-		        error: function () {
-		            alert("请求失败！请刷新页面重试");
-		        },
-		        dataType: 'json'
-		    });
-			$.ajax({
-		        type: 'POST',
-		        async: false,
-		        url: 'job/monitor/getAllFail.shtml',
-		        data: {},
-		        success: function (data) {
-		        	$("#allFail").text(data);
-		        },
-		        error: function () {
-		            alert("请求失败！请刷新页面重试");
-		        },
-		        dataType: 'json'
-		    });
-		});
-    	function MonitorJobFormatter(value, row, index){
-    		var MonitorJob = "";
-    		$.ajax({
-		        type: 'POST',
-		        async: false,
-		        url: 'job/getJob.shtml',
-		        data: {
-		            "jobId": value          
-		        },
-		        success: function (data) {
-		        	var job = data.data;
-		        	MonitorJob = job.jobName;		        	 				        	 
-		        },
-		        error: function () {
-		            alert("系统出现问题，请联系管理员");
-		        },
-		        dataType: 'json'
-		    });
-    		return MonitorJob;
-    	}; 
-    	
-	    function actionFormatter(value, row, index) {
-	    	return ['<a class="btn btn-primary btn-xs" id="viewDetail" type="button"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;查看详细</a>'].join('');	
-	    };
-	    window.actionEvents = {				
-    		'click #viewDetail' : function(e, value, row, index) {
-    			location.href="view/job/record/listUI.shtml?jobId=" + row.monitorJob;    			
-    		},
-    	};
-		    function queryParams(params) {  	
-		    	var temp = {limit: 10, offset: params.offset};
-		        return temp;
-		    };
-		    		    
-		    function search(){
-		    	window.location.reload();
-		    };
+            var jobMonitorTable;
+            var defaultColunms = function () {
+                return [
+                    {title: '记录编号', field: 'monitorId', align: 'center', valign: 'middle',width:'50px'},
+                    {title: '作业名称', field: 'monitorJob', align: 'center', valign: 'middle', formatter: MonitorJobFormatter, sortable: false},
+                    {title: '作业执行成功次数', field: 'monitorSuccess', align: 'center', valign: 'middle', sortable: false},
+                    {title: '作业执行失败次数', field: 'monitorFail', align: 'center', valign: 'middle', sortable: false},
+                    {title: '操作', align: 'center', valign: 'middle', formatter: actionFormatter,events:actionEvents}
+                ];
+            };
+            UtilsJS.AjaxRequest({
+                async: true,
+                url: 'job/monitor/getAllMonitorJob.shtml',
+                data:{},
+                success:function (data) {
+                    $("#alljob").text(data.data);
+                }
+            });
+            UtilsJS.AjaxRequest({
+                async: true,
+                url: 'job/monitor/getAllSuccess.shtml',
+                data:{},
+                success:function (data) {
+                    $("#allSuccess").text(data.data);
+                }
+            });
+            UtilsJS.AjaxRequest({
+                async: true,
+                url: 'job/monitor/getAllFail.shtml',
+                data:{},
+                success:function (data) {
+                    $("#allFail").text(data.data);
+                }
+            });
+
+            function MonitorJobFormatter(value, row, index){
+                var MonitorJob = "";
+                UtilsJS.AjaxRequest({
+                    async: false,
+                    url: 'job/getJob.shtml',
+                    data:{
+                        "jobId": value
+                    },
+                    success:function (data) {
+                        var job = data.data;
+                        MonitorJob = job.jobName;
+                    }
+                });
+
+                return MonitorJob;
+            };
+
+            function actionFormatter(value, row, index) {
+                return ['<a class="btn btn-primary btn-xs" id="viewDetail" type="button"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;查看详细</a>'].join('');
+            };
+            window.actionEvents = {
+                'click #viewDetail' : function(e, value, row, index) {
+                    location.href="view/job/record/listUI.shtml?jobId=" + row.monitorJob;
+                },
+            };
+
+            jobMonitorTable = new UtilsJS.BSTable("jobMonitorList", "job/monitor/getList.shtml", defaultColunms());
+            jobMonitorTable.init();
+        });
+
+        function search(){
+            window.location.reload();
+        };
 		    
     </script>
 </body>

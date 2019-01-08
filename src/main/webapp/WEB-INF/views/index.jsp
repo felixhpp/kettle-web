@@ -178,16 +178,25 @@
     <script type="text/javascript" src="static/js/contabs.js"></script>
     <!-- 第三方插件 -->
     <script type="text/javascript" src="static/js/plugins/pace/pace.min.js"></script>
-    <!-- 自定义js -->
-    <script type="text/javascript" src="static/js/my/main.js"></script>
+    <script src="static/js/my/kw-utils.js"></script>
+    <%--<script src="static/js/my/main.js" type="text/javascript"></script>--%>
     <script type="text/javascript">
+        /*判断是否为管理员*/
+        UtilsJS.AjaxRequest({
+            async: false,
+            url: 'index/isAdmin.shtml',
+            data:{},
+            success:function (data) {
+                if (!data.data){
+                    $("#isAdmin").hide();
+                }
+            },
+            error: function () {
+                window.location.href="view/loginUI.shtml";
+            },
+        });
         //显示登陆用户名称
         var curLoginName = window.localStorage.getItem("uAccount");
-        if(curLoginName){
-            $("#localName").innerHTML(curLoginName);
-        }else {
-            //登出
-        };
 
         $("#userInfo").on("mouseover", function () {
             $(this).find(".kw-nav-child").show();
@@ -249,6 +258,7 @@
                 }
             }
         };
+
 
     </script>
 </body>

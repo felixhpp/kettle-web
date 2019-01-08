@@ -7,7 +7,6 @@ import indi.felix.kw.core.dto.ResultDto;
 import indi.felix.kw.core.model.KJob;
 import indi.felix.kw.core.model.KUser;
 import indi.felix.kw.web.service.JobService;
-import indi.felix.kw.web.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +28,7 @@ public class JobController {
 	@RequestMapping("getSimpleList.shtml")
 	public String getSimpleList(HttpServletRequest request){
 		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
-		return JsonUtils.objectToJson(jobService.getList(kUser.getuId()));
+		return ResultDto.success(jobService.getList(kUser.getuId()));
 	}
 	
 	
@@ -37,14 +36,14 @@ public class JobController {
 	public String getList(Integer offset, Integer limit, HttpServletRequest request){
 		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
 		BootTablePage list = jobService.getList(offset, limit, kUser.getuId());
-		return JsonUtils.objectToJson(list);
+		return ResultDto.success(list);
 	}
 
 	@RequestMapping("getListJobView.shtml")
 	public String getListJobView(Integer offset, Integer limit, HttpServletRequest request){
 		KUser kUser = (KUser) request.getSession().getAttribute(Constant.SESSION_ID);
 		BootTablePage list = jobService.getListJobView(offset, limit, kUser.getuId());
-		return JsonUtils.objectToJson(list);
+		return ResultDto.success(list);
 	}
 
 
@@ -62,7 +61,7 @@ public class JobController {
 			return ResultDto.success(saveFilePath);
 		} catch (IOException e) {
 			e.printStackTrace();
-			return null;
+			return ResultDto.fail();
 		}	
 	}
 	

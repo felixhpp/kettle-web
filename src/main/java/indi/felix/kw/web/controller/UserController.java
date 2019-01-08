@@ -1,10 +1,10 @@
 package indi.felix.kw.web.controller;
 
+import indi.felix.kw.common.exception.SeviceException;
 import indi.felix.kw.common.toolkit.Constant;
 import indi.felix.kw.core.dto.ResultDto;
 import indi.felix.kw.core.model.KUser;
 import indi.felix.kw.web.service.UserService;
-import indi.felix.kw.web.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,12 +21,18 @@ public class UserController {
 	
 	@RequestMapping("getList.shtml")
 	public String getList(Integer offset, Integer limit){
-		return JsonUtils.objectToJson(userService.getList(offset, limit));
+		return ResultDto.success(userService.getList(offset, limit));
 	}
 	
 	@RequestMapping("delete.shtml")
 	public String delete(Integer uId){
-		userService.delete(uId);
+		try {
+			userService.delete(uId);
+		} catch (SeviceException e) {// 用自己的异常类来捕获异常
+			e.printStackTrace();
+			return ResultDto.fail(e.getMessage());
+		}
+
 		return ResultDto.success();
 	}
 	

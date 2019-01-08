@@ -1,5 +1,6 @@
 package indi.felix.kw.web.service;
 
+import indi.felix.kw.common.exception.SeviceException;
 import indi.felix.kw.common.toolkit.MD5Utils;
 import indi.felix.kw.core.dto.BootTablePage;
 import indi.felix.kw.core.mapper.KUserDao;
@@ -22,7 +23,6 @@ public class UserService {
 	 * @Title login
 	 * @Description 登陆
 	 * @param kUser 用户信息对象
-	 * @return
 	 * @return KUser
 	 */
 	public KUser login(KUser kUser){
@@ -43,7 +43,6 @@ public class UserService {
 	 * @Title isAdmin
 	 * @Description 用户是否为管理员
 	 * @param uId 用户ID
-	 * @return
 	 * @return boolean
 	 */
 	public boolean isAdmin(Integer uId){
@@ -60,7 +59,6 @@ public class UserService {
 	 * @Description 获取用户分页列表
 	 * @param start 其实行数
 	 * @param size 每页显示行数
-	 * @return 
 	 * @return BootTablePage
 	 */
 	public BootTablePage getList(Integer start, Integer size){
@@ -91,8 +89,12 @@ public class UserService {
 	 * @param uId 用户ID
 	 * @return void
 	 */
-	public void delete(Integer uId){
+	public void delete(Integer uId) throws SeviceException{
 		KUser kUser = kUserDao.unique(uId);
+		//禁止用户删除admin账号
+		if(kUser.getuAccount().equals("admin")){
+			throw new SeviceException("管理员账号不用允许删除");
+		}
 		kUser.setDelFlag(0);
 		kUserDao.updateById(kUser);
 	}
@@ -128,7 +130,7 @@ public class UserService {
 	 * @param uId 操作用户ID
 	 * @return void
 	 */
-	public  void  update(KUser kUser,Integer uId){
+	public void update(KUser kUser,Integer uId){
 		kUser.setEditUser(uId);
 		kUser.setEditTime(new Date());
 		kUser.setuPassword(MD5Utils.Encrypt(kUser.getuPassword(),true));

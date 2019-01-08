@@ -1,34 +1,26 @@
 $(document).ready(function () {
-	$.ajax({
-        type: 'POST',
-        async: false,
+    UtilsJS.AjaxRequest({
         url: 'repository/database/getSimpleList.shtml',
         data: {},
-        success: function (data) {
-        	for (var i=0; i<data.length; i++){
-        		$("#transRepositoryId").append('<option value="' + data[i].repositoryId + '">' + data[i].repositoryName + '</option>');
-        	}
-        },
-        error: function () {
-            alert("请求失败！请刷新页面重试");
-        },
-        dataType: 'json'
-    });	 
-	$.ajax({
-        type: 'POST',
         async: false,
+        success:function (data) {
+            for (var i=0; i<data.length; i++){
+                $("#transRepositoryId").append('<option value="' + data[i].repositoryId + '">' + data[i].repositoryName + '</option>');
+            }
+        }
+    });
+
+    UtilsJS.AjaxRequest({
         url: 'quartz/getSimpleList.shtml',
         data: {},
-        success: function (data) {
-        	for (var i=0; i<data.length; i++){
-        		$("#transQuartz").append('<option value="' + data[i].quartzId + '">' + data[i].quartzDescription + '</option>');
-        	}
-        },
-        error: function () {
-            alert("请求失败！请刷新页面重试");
-        },
-        dataType: 'json'
-    });	
+        async: false,
+        success:function (data) {
+            for (var i=0; i<data.length; i++){
+                $("#transQuartz").append('<option value="' + data[i].quartzId + '">' + data[i].quartzDescription + '</option>');
+            }
+        }
+    });
+
 	$("#customerQuarz").cronGen({
     	direction : 'left'
 	});
@@ -37,26 +29,22 @@ $(document).ready(function () {
 
 var reset = function(){
 	var transId = $("#transId").val();
-	$.ajax({
-        type: 'POST',
-        async: false,
+
+    UtilsJS.AjaxRequest({
         url: 'trans/getTrans.shtml',
         data: {
-        	transId : transId
+            transId : transId
         },
-        success: function (data) {
-        	var Trans = data.data;
-        	$("#transRepositoryId").find("option[value=" + Trans.transRepositoryId + "]").prop("selected",true);
-        	$("#transPath").val(Trans.transPath);
-        	$("#transName").val(Trans.transName);
-        	$("#transQuartz").find("option[value=" + Trans.transQuartz + "]").prop("selected",true);
-        	$("#transLogLevel").find("option[value=" + Trans.transLogLevel + "]").prop("selected",true);
-        	$("#transDescription").val(Trans.transDescription);      	
-        },
-        error: function () {
-            alert("请求失败！请刷新页面重试");
-        },
-        dataType: 'json'
+        async: false,
+        success:function (data) {
+            var Trans = data.data;
+            $("#transRepositoryId").find("option[value=" + Trans.transRepositoryId + "]").prop("selected",true);
+            $("#transPath").val(Trans.transPath);
+            $("#transName").val(Trans.transName);
+            $("#transQuartz").find("option[value=" + Trans.transQuartz + "]").prop("selected",true);
+            $("#transLogLevel").find("option[value=" + Trans.transLogLevel + "]").prop("selected",true);
+            $("#transDescription").val(Trans.transDescription);
+        }
     });
 }
 
@@ -112,23 +100,17 @@ $().ready(function () {
         	}
         },
         submitHandler:function(form){
-        	$.post("trans/update.shtml", decodeURIComponent($(form).serialize(),true), function(data){
-        		var result = JSON.parse(data);
-    			if(result.status == "success"){
-    				layer.msg('更新成功',{
-            			time: 1500,
-            			icon: 6
-            		});              		
-            		setTimeout(function(){
-            			//location.href = "view/trans/listUI.shtml";
-                        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-                        parent.transListRefresh();
-                        parent.layer.close(index);
-            		},1500);
-    			}else {
-    				layer.msg(result.message, {icon: 2}); 
-    			}
-    		});
+            UtilsJS.PostRequeat("trans/update.shtml", decodeURIComponent($(form).serialize(),true), function(data){
+                layer.msg('更新成功',{
+                    time: 1500,
+                    icon: 6
+                });
+                setTimeout(function(){
+                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                    parent.transListRefresh();
+                    parent.layer.close(index);
+                },1500);
+            });
         } 
     });
 });

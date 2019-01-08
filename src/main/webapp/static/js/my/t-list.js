@@ -1,64 +1,56 @@
 $(document).ready(function () {
-    $.ajax({
-        type: 'POST',
-        async: false,
+    var transMonitorTable;
+    var defaultColunms = function () {
+        return [
+            {title: '记录编号', field: 'monitorId', align: 'center', valign: 'middle',width:'50px'},
+            {title: '转换名称', field: 'monitorTrans', align: 'center', valign: 'middle', formatter: MonitorTransFormatter, sortable: false},
+            {title: '转换执行成功次数', field: 'monitorSuccess', align: 'center', valign: 'middle', sortable: false},
+            {title: '转换执行失败次数', field: 'monitorFail', align: 'center', valign: 'middle', sortable: false},
+            {title: '操作', align: 'center', valign: 'middle', formatter: actionFormatter,events:actionEvents}
+        ];
+    };
+    UtilsJS.AjaxRequest({
+        async: true,
         url: 'trans/monitor/getAllMonitorTrans.shtml',
-        data: {},
-        success: function (data) {
-            console.log(data);
-            $("#allTrans").text(data);
-        },
-        error: function () {
-            alert("请求失败！请刷新页面重试");
-        },
-        dataType: 'json'
+        data:{},
+        success:function (data) {
+            $("#allTrans").text(data.data);
+        }
     });
-    $.ajax({
-        type: 'POST',
-        async: false,
+    UtilsJS.AjaxRequest({
+        async: true,
         url: 'trans/monitor/getAllSuccess.shtml',
-        data: {},
-        success: function (data) {
-            console.log(data);
-            $("#allSuccess").text(data);
-        },
-        error: function () {
-            alert("请求失败！请刷新页面重试");
-        },
-        dataType: 'json'
+        data:{},
+        success:function (data) {
+            $("#allSuccess").text(data.data);
+        }
     });
-    $.ajax({
-        type: 'POST',
-        async: false,
+    UtilsJS.AjaxRequest({
+        async: true,
         url: 'trans/monitor/getAllFail.shtml',
-        data: {},
-        success: function (data) {
-            $("#allFail").text(data);
-        },
-        error: function () {
-            alert("请求失败！请刷新页面重试");
-        },
-        dataType: 'json'
+        data:{},
+        success:function (data) {
+            $("#allFail").text(data.data);
+        }
     });
+
+    transMonitorTable = new UtilsJS.BSTable("transMonitorList", "trans/monitor/getList.shtml", defaultColunms());
+    transMonitorTable.init();
 });
 function MonitorTransFormatter(value, row, index){
     var MonitorTrans = "";
-    $.ajax({
-        type: 'POST',
+    UtilsJS.AjaxRequest({
         async: false,
-        url: 'trans/getTrans.shtml',
-        data: {
+        url: 'trans/monitor/getAllFail.shtml',
+        data:{
             "transId": value
         },
-        success: function (data) {
+        success:function (data) {
             var Trans = data.data;
             MonitorTrans = Trans.transName;
-        },
-        error: function () {
-            alert("系统出现问题，请联系管理员");
-        },
-        dataType: 'json'
+        }
     });
+
     return MonitorTrans;
 };
 
@@ -68,21 +60,7 @@ function actionFormatter(value, row, index) {
 window.actionEvents = {
     'click #viewDetail' : function(e, value, row, index) {
         location.href="view/trans/record/listUI.shtml?transId=" + row.monitorTrans;
-        /*
-        layer.open({
-            type: 2,
-            title: 'iframe父子操作',
-            maxmin: true,
-            shadeClose: true, //点击遮罩关闭层
-            area : ['800px' , '520px'],
-            content: "view/trans/record/listUI.shtml?transId=" + row.monitorTrans
-        });
-        */
     },
-};
-function queryParams(params) {
-    var temp = {limit: 10, offset: params.offset};
-    return temp;
 };
 
 function search(){

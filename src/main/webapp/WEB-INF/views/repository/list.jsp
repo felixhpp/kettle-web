@@ -33,32 +33,33 @@
 	            	<%--<a href="view/repository/addUI.shtml" class="btn btn-w-m btn-info" type="button">--%>
 	            		<%--<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增数据库资源库--%>
             		<%--</a>--%>
-                    <button id="addRepositoryBtn" onclick="addRepositoryClick()" class="btn btn-w-m btn-info" type="button">
+                    <button id="addRepositoryBtn" class="btn btn-w-m btn-info" type="button">
                         <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增数据库资源库
                     </button>
             	</div>
                 <div class="right">
-                    <button onclick="repositoryListRefresh()" class="btn btn-w-m btn-info" type="button">
+                    <button id="refreshBtn" class="btn btn-w-m btn-info" type="button">
                         <i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;刷新列表
                     </button>
                 </div>
-                <table id="repositoryList" data-toggle="table"
-					data-url="repository/database/getList.shtml"
-					data-query-params=queryParams data-query-params-type="limit"
-					data-pagination="true"
-					data-side-pagination="server" data-pagination-loop="false">
-					<thead>
-						<tr>
-							<th data-field="repositoryId">资源库编号</th>
-							<th data-field="repositoryName" data-formatter="repositoryNameFormatter">资源库名称</th>
-							<th data-field="databaseHost">资源库主机名或IP地址</th>
-							<th data-field="databaseName">资源库数据库名称</th>
-							<th data-field="editTime">资源库更新时间</th>
-							<th data-field="action" data-formatter="actionFormatter"
-								data-events="actionEvents">操作</th>
-						</tr>
-					</thead>
-				</table>
+                <table id="repositoryList"></table>
+                <%--<table id="repositoryList" data-toggle="table"--%>
+					<%--data-url="repository/database/getList.shtml"--%>
+					<%--data-query-params=queryParams data-query-params-type="limit"--%>
+					<%--data-pagination="true"--%>
+					<%--data-side-pagination="server" data-pagination-loop="false">--%>
+					<%--<thead>--%>
+						<%--<tr>--%>
+							<%--<th data-field="repositoryId">资源库编号</th>--%>
+							<%--<th data-field="repositoryName" data-formatter="repositoryNameFormatter">资源库名称</th>--%>
+							<%--<th data-field="databaseHost">资源库主机名或IP地址</th>--%>
+							<%--<th data-field="databaseName">资源库数据库名称</th>--%>
+							<%--<th data-field="editTime">资源库更新时间</th>--%>
+							<%--<th data-field="action" data-formatter="actionFormatter"--%>
+								<%--data-events="actionEvents">操作</th>--%>
+						<%--</tr>--%>
+					<%--</thead>--%>
+				<%--</table>--%>
             </div>
         </div>
 	</div>
@@ -77,6 +78,7 @@
 <script src="static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 <!-- 自定义js -->
 <script src="static/js/content.js?v=1.0.0"></script>
+<script src="static/js/my/kw-utils.js"></script>
 <script src="static/js/my/repository.js"></script>
 
 </html>

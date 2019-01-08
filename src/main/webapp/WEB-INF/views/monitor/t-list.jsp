@@ -75,22 +75,23 @@
 	            		<i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;刷新列表
             		</button>
             	</div>
-                <table id="transMonitorList" data-toggle="table"
-					data-url="trans/monitor/getList.shtml"
-					data-query-params=queryParams data-query-params-type="limit"
-					data-pagination="true"
-					data-side-pagination="server" data-pagination-loop="false">
-					<thead>
-						<tr>
-							<th data-field="monitorId">记录编号</th>
-							<th data-field="monitorTrans" data-formatter="MonitorTransFormatter">转换名称</th>
-							<th data-field="monitorSuccess">转换执行成功次数</th>
-							<th data-field="monitorFail">转换执行失败次数</th>
-							<th data-field="action" data-formatter="actionFormatter"
-								data-events="actionEvents">操作</th>
-						</tr>
-					</thead>
-				</table>
+                <table id="transMonitorList"></table>
+                <%--<table id="transMonitorList" data-toggle="table"--%>
+					<%--data-url="trans/monitor/getList.shtml"--%>
+					<%--data-query-params=queryParams data-query-params-type="limit"--%>
+					<%--data-pagination="true"--%>
+					<%--data-side-pagination="server" data-pagination-loop="false">--%>
+					<%--<thead>--%>
+						<%--<tr>--%>
+							<%--<th data-field="monitorId">记录编号</th>--%>
+							<%--<th data-field="monitorTrans" data-formatter="MonitorTransFormatter">转换名称</th>--%>
+							<%--<th data-field="monitorSuccess">转换执行成功次数</th>--%>
+							<%--<th data-field="monitorFail">转换执行失败次数</th>--%>
+							<%--<th data-field="action" data-formatter="actionFormatter"--%>
+								<%--data-events="actionEvents">操作</th>--%>
+						<%--</tr>--%>
+					<%--</thead>--%>
+				<%--</table>--%>
             </div>
         </div>
 	</div>
@@ -105,6 +106,7 @@
     <script src="static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="static/js/my/kw-utils.js"></script>
     <script src="static/js/my/t-list.js"></script>
 </body>
 </html>

@@ -35,7 +35,7 @@
             		</a>
             	</div>
             	<div class="right col-sm-6 float-right">	
-	            	<button onclick="search()" class="right btn btn-w-m btn-info" type="button">
+	            	<button id="searchTransRecord" class="right btn btn-w-m btn-info" type="button">
 	            		<i class="fa fa-search" aria-hidden="true"></i>&nbsp;搜索
             		</button>
             		<div class="right col-sm-7">
@@ -45,23 +45,24 @@
                     </div> 
             	</div>
             	<input type="hidden" id="transDefaultId" name="transDefaultId" value="${transId }">
-                <table id="transRecordList" data-toggle="table"
-					data-url="trans/record/getList.shtml"
-					data-query-params=queryParams data-query-params-type="limit"
-					data-pagination="true"
-					data-side-pagination="server" data-pagination-loop="false">
-					<thead>
-						<tr>
-							<th data-field="recordId">记录编号</th>
-							<th data-field="recordTrans" data-formatter="recordTransFormatter">转换名称</th>
-							<th data-field="startTime">转换执行起始时间</th>
-							<th data-field="stopTime">转换执行结束时间</th>
-							<th data-field="recordStatus" data-formatter="recordStatusFormatter">转换执行状态</th>
-							<th data-field="action" data-formatter="actionFormatter"
-								data-events="actionEvents">操作</th>
-						</tr>
-					</thead>
-				</table>
+                <table id="transRecordList"></table>
+                <%--<table id="transRecordList" data-toggle="table"--%>
+					<%--data-url="trans/record/getList.shtml"--%>
+					<%--data-query-params=queryParams data-query-params-type="limit"--%>
+					<%--data-pagination="true"--%>
+					<%--data-side-pagination="server" data-pagination-loop="false">--%>
+					<%--<thead>--%>
+						<%--<tr>--%>
+							<%--<th data-field="recordId">记录编号</th>--%>
+							<%--<th data-field="recordTrans" data-formatter="recordTransFormatter">转换名称</th>--%>
+							<%--<th data-field="startTime">转换执行起始时间</th>--%>
+							<%--<th data-field="stopTime">转换执行结束时间</th>--%>
+							<%--<th data-field="recordStatus" data-formatter="recordStatusFormatter">转换执行状态</th>--%>
+							<%--<th data-field="action" data-formatter="actionFormatter"--%>
+								<%--data-events="actionEvents">操作</th>--%>
+						<%--</tr>--%>
+					<%--</thead>--%>
+				<%--</table>--%>
             </div>
         </div>
 	</div>
@@ -76,26 +77,52 @@
     <script src="static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="static/js/my/kw-utils.js"></script>
 	<script>
 		$(document).ready(function () {
+		    var transRecordTable;
 			var $transDefaultId = $("#transDefaultId").val();
-			$.ajax({
-		        type: 'POST',
-		        async: false,
-		        url: 'trans/getSimpleList.shtml',
-		        data: {},
-		        success: function (data) {
-		        	for (var i=0; i<data.length; i++){
-		        		$("#transId").append('<option value="' + data[i].transId + '">' + data[i].transName + '</option>');
-		        	}
-		        },
-		        error: function () {
-		            alert("请求失败！请刷新页面重试");
-		        },
-		        dataType: 'json'
-		    });
+            var defaultColunms = function () {
+                return [
+                    {title: '记录编号', field: 'recordId', align: 'center', valign: 'middle',width:'50px'},
+                    {title: '转换名称', field: 'recordTrans', align: 'center', valign: 'middle', formatter: recordTransFormatter, sortable: false},
+                    {title: '转换执行起始时间', field: 'startTime', align: 'center', valign: 'middle', sortable: false},
+                    {title: '转换执行结束时间', field: 'stopTime', align: 'center', valign: 'middle', sortable: false},
+                    {title: '转换执行状态', field: 'recordStatus', align: 'center', valign: 'middle', sortable: false},
+                    {title: '操作', align: 'center', valign: 'middle', formatter: actionFormatter,events:actionEvents}
+                ];
+            };
+            UtilsJS.AjaxRequest({
+                async: false,
+                url: 'trans/getSimpleList.shtml',
+                data:{},
+                success:function (data) {
+                    var dataObj = data.data;
+                    for (var i=0; i<dataObj.length; i++){
+                        $("#transId").append('<option value="' + dataObj[i].transId + '">' + dataObj[i].transName + '</option>');
+                    }
+                }
+            });
+
 			$("#transId").find("option[value=" + $transDefaultId + "]").prop("selected",true);
-			search();
+
+
+            transRecordTable = new UtilsJS.BSTable("transRecordList", "trans/record/getList.shtml", defaultColunms(),{
+                queryParams: function (params) {
+                    var $transId = $("#transId").val();
+                    return {
+                        transId: $transId
+                    };
+                }
+            });
+            transRecordTable.init();
+            function refreshTransRecord(){
+                transRecordTable.refresh();
+            };
+
+            $("#searchTransRecord").click(function () {
+                refreshTransRecord();
+            });
 		});
     	function recordTransFormatter(value, row, index){
     		var recordTrans = "";
@@ -181,16 +208,8 @@
     		  		);
 	    		},
 	    	};
-		    
-		    function queryParams(params) {
-		    	var $transId = $("#transId").val();   	
-		    	var temp = {limit: 10, offset: params.offset, transId: $transId};
-		        return temp;
-		    };
-		    		    
-		    function search(){
-		    	$('#transRecordList').bootstrapTable('refresh', "trans/record/getList.shtml");
-		    };
+
+
 		    
     </script>
 </body>

@@ -73,23 +73,11 @@
 		            </div>
 		            <div class="ibox-content">
 		            	<div class="right">	
-			            	<button onclick="searchTrans()" class="btn btn-w-m btn-info" type="button">
+			            	<button id="refreshTransBtn" class="btn btn-w-m btn-info" type="button">
 			            		<i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;刷新列表
 		            		</button>
 		            	</div>
-		                <table id="transMonitorList" data-toggle="table"
-							data-url="main/getTransList.shtml"
-							data-query-params=queryParams data-query-params-type="limit"
-							data-pagination="true"
-							data-side-pagination="server" data-pagination-loop="false">
-							<thead>
-								<tr>
-									<th data-field="monitorId">记录编号</th>
-									<th data-field="monitorTrans" data-formatter="MonitorTransFormatter">转换名称</th>
-									<th data-field="monitorSuccess">转换执行成功次数</th>
-								</tr>
-							</thead>
-						</table>
+						<table id="transMonitorList"></table>
 		            </div>
 		        </div>
     		</div>
@@ -108,23 +96,11 @@
 		            </div>
 		            <div class="ibox-content">
 		            	<div class="right">	
-			            	<button onclick="searchJobs()" class="btn btn-w-m btn-info" type="button">
+			            	<button id="refreshJobsBtn" class="btn btn-w-m btn-info" type="button">
 			            		<i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;刷新列表
 		            		</button>
 		            	</div>
-		                <table id="jobMonitorList" data-toggle="table"
-							data-url="main/getJobList.shtml"
-							data-query-params=queryParams data-query-params-type="limit"
-							data-pagination="true"
-							data-side-pagination="server" data-pagination-loop="false">
-							<thead>
-								<tr>
-									<th data-field="monitorId">记录编号</th>
-									<th data-field="monitorJob" data-formatter="MonitorJobFormatter">转换名称</th>
-									<th data-field="monitorSuccess">转换执行成功次数</th>
-								</tr>
-							</thead>
-						</table>
+						<table id="jobMonitorList"></table>
 		            </div>
 		        </div>
     		</div>
@@ -160,7 +136,8 @@
     <!-- ECharts -->
     <script src="static/js/plugins/echarts/echarts.js"></script>
     <!-- 自定义js -->
-    <script src="static/js/content.js?v=1.0.0"></script>    
+    <script src="static/js/content.js?v=1.0.0"></script>
+	<script src="static/js/my/kw-utils.js"></script>
     <!-- customer -->
     <script src="static/js/my/main.js" type="text/javascript"></script>
 </body>

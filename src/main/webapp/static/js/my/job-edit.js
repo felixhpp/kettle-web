@@ -1,34 +1,26 @@
 $(document).ready(function () {
-	$.ajax({
-        type: 'POST',
+    UtilsJS.AjaxRequest({
         async: false,
         url: 'repository/database/getSimpleList.shtml',
-        data: {},
-        success: function (data) {
-        	for (var i=0; i<data.length; i++){
-        		$("#jobRepositoryId").append('<option value="' + data[i].repositoryId + '">' + data[i].repositoryName + '</option>');
-        	}
-        },
-        error: function () {
-            alert("请求失败！请刷新页面重试");
-        },
-        dataType: 'json'
-    });	 
-	$.ajax({
-        type: 'POST',
+        data:{},
+        success:function (data) {
+            for (var i=0; i<data.length; i++){
+                $("#jobRepositoryId").append('<option value="' + data[i].repositoryId + '">' + data[i].repositoryName + '</option>');
+            }
+        }
+    });
+
+    UtilsJS.AjaxRequest({
         async: false,
         url: 'quartz/getSimpleList.shtml',
-        data: {},
-        success: function (data) {
-        	for (var i=0; i<data.length; i++){
-        		$("#jobQuartz").append('<option value="' + data[i].quartzId + '">' + data[i].quartzDescription + '</option>');
-        	}
-        },
-        error: function () {
-            alert("请求失败！请刷新页面重试");
-        },
-        dataType: 'json'
-    });	
+        data:{},
+        success:function (data) {
+            for (var i=0; i<data.length; i++){
+                $("#jobQuartz").append('<option value="' + data[i].quartzId + '">' + data[i].quartzDescription + '</option>');
+            }
+        }
+    });
+
 	$("#customerQuarz").cronGen({
     	direction : 'left'
 	});
@@ -37,27 +29,24 @@ $(document).ready(function () {
 
 var reset = function(){
 	var jobId = $("#jobId").val();
-	$.ajax({
-        type: 'POST',
+
+    UtilsJS.AjaxRequest({
         async: false,
         url: 'job/getJob.shtml',
-        data: {
-        	jobId : jobId
-        },
-        success: function (data) {
-        	var job = data.data;
-        	$("#jobRepositoryId").find("option[value=" + job.jobRepositoryId + "]").prop("selected",true);
-        	$("#jobPath").val(job.jobPath);
-        	$("#jobName").val(job.jobName);
-        	$("#jobQuartz").find("option[value=" + job.jobQuartz + "]").prop("selected",true);
-        	$("#jobLogLevel").find("option[value=" + job.jobLogLevel + "]").prop("selected",true);
-        	$("#jobDescription").val(job.jobDescription);      	
-        },
-        error: function () {
-            alert("请求失败！请刷新页面重试");
-        },
-        dataType: 'json'
+        data:{
+            jobId : jobId
+		},
+        success:function (data) {
+            var job = data.data;
+            $("#jobRepositoryId").find("option[value=" + job.jobRepositoryId + "]").prop("selected",true);
+            $("#jobPath").val(job.jobPath);
+            $("#jobName").val(job.jobName);
+            $("#jobQuartz").find("option[value=" + job.jobQuartz + "]").prop("selected",true);
+            $("#jobLogLevel").find("option[value=" + job.jobLogLevel + "]").prop("selected",true);
+            $("#jobDescription").val(job.jobDescription);
+        }
     });
+
 }
 
 $("#changeQuartz").click(function(){
@@ -112,23 +101,18 @@ $().ready(function () {
         	}
         },
         submitHandler:function(form){
-        	$.post("job/update.shtml", decodeURIComponent($(form).serialize(),true), function(data){
-        		var result = JSON.parse(data);
-    			if(result.status == "success"){
-    				layer.msg('更新成功',{
-            			time: 1500,
-            			icon: 6
-            		});              		
-            		setTimeout(function(){
-            			location.href = "view/job/listUI.shtml";
-                        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-                        parent.jobListRefresh();
-                        parent.layer.close(index);
-            		},1500);
-    			}else {
-    				layer.msg(result.message, {icon: 2}); 
-    			}
-    		});
+            UtilsJS.PostRequeat("job/update.shtml", decodeURIComponent($(form).serialize(),true), function(data){
+                layer.msg('更新成功',{
+                    time: 1500,
+                    icon: 6
+                });
+                setTimeout(function(){
+                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                    parent.jobListRefresh();
+                    parent.layer.close(index);
+                },1500);
+            });
+
         } 
     });
 });

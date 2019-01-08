@@ -41,30 +41,31 @@
                 <%--<a href="view/quartz/addUI.shtml" class="btn btn-w-m btn-info" type="button">--%>
                     <%--<i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增定时策略--%>
                 <%--</a>--%>
-                <button onclick="addQuartzClick()" class="btn btn-w-m btn-info" type="button">
+                <button id="addQuartzBtn" class="btn btn-w-m btn-info" type="button">
                     <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;新增定时策略
                 </button>
             </div>
             <div class="right">
-                <button onclick="quartzListRefresh()" class="btn btn-w-m btn-info" type="button">
+                <button id="refreshBtn" class="btn btn-w-m btn-info" type="button">
                     <i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;刷新列表
                 </button>
             </div>
-            <table id="quartzList" data-toggle="table"
-                   data-url="quartz/getList.shtml"
-                   data-query-params=queryParams data-query-params-type="limit"
-                   data-pagination="true"
-                   data-side-pagination="server" data-pagination-loop="false">
-                <thead>
-                <tr>
-                    <th data-field="quartzId">策略编号</th>
-                    <th data-field="quartzDescription">策略描述</th>
-                    <th data-field="quartzCron">定时策略表达式</th>
-                    <th data-field="action" data-formatter="actionFormatter"
-                        data-events="actionEvents">操作</th>
-                </tr>
-                </thead>
-            </table>
+            <table id="quartzList"></table>
+            <%--<table id="quartzList" data-toggle="table"--%>
+                   <%--data-url="quartz/getList.shtml"--%>
+                   <%--data-query-params=queryParams data-query-params-type="limit"--%>
+                   <%--data-pagination="true"--%>
+                   <%--data-side-pagination="server" data-pagination-loop="false">--%>
+                <%--<thead>--%>
+                <%--<tr>--%>
+                    <%--<th data-field="quartzId">策略编号</th>--%>
+                    <%--<th data-field="quartzDescription">策略描述</th>--%>
+                    <%--<th data-field="quartzCron">定时策略表达式</th>--%>
+                    <%--<th data-field="action" data-formatter="actionFormatter"--%>
+                        <%--data-events="actionEvents">操作</th>--%>
+                <%--</tr>--%>
+                <%--</thead>--%>
+            <%--</table>--%>
         </div>
     </div>
 </div>
@@ -84,6 +85,7 @@
 <script src="static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
 <script src="static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 <script src="static/js/my/cronValidate.js"></script>
+<script src="static/js/my/kw-utils.js"></script>
 <script src="static/js/my/quartz.js"></script>
 </body>
 </html>

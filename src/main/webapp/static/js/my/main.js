@@ -1,62 +1,51 @@
 $(document).ready(function () {
-    /*判断是否为管理员*/
-	$.ajax({
-        type: 'POST',
-        async: false,
-        url: 'index/isAdmin.shtml',
-        data: {},
-        success: function (data) {
-        	if (!data){
-        		$("#isAdmin").hide();
-        	}
-        },
-        error: function () {
-        	window.location.href="view/loginUI.shtml";
-        },
-        dataType: 'json'
-    });
+    var transMonitorTabel;
+    var jobMonitorTabel;
+
+    var transColunms = function () {
+        return [
+            {title: '记录编号', field: 'monitorId', align: 'center', valign: 'middle',width:'50px'},
+            {title: '转换名称', field: 'monitorTrans', align: 'center', valign: 'middle', formatter: MonitorTransFormatter, sortable: false},
+            {title: '转换执行成功次数', field: 'monitorSuccess', align: 'center', valign: 'middle', sortable: false}
+        ];
+    };
+    var jobColunms = function () {
+        return [
+            {title: '记录编号', field: 'monitorId', align: 'center', valign: 'middle',width:'50px'},
+            {title: '作业名称', field: 'monitorJob', align: 'center', valign: 'middle', formatter: MonitorJobFormatter, sortable: false},
+            {title: '作业执行成功次数', field: 'monitorSuccess', align: 'center', valign: 'middle', sortable: false}
+        ];
+    };
+
 	/*获取全部在监控的任务*/
-	$.ajax({
-        type: 'POST',
+    UtilsJS.AjaxRequest({
         async: false,
         url: 'main/allRuning.shtml',
-        data: {},
-        success: function (data) {
-        	$("#allNum").text(data);
-        },
-        error: function () {
-            alert("请求失败！请刷新页面重试");
-        },
-        dataType: 'json'
+        data:{},
+        success:function (data) {
+            $("#allNum").text(data.data);
+        }
     });
+
 	/*获取在监控的转换数*/
-	$.ajax({
-        type: 'POST',
+    UtilsJS.AjaxRequest({
         async: false,
         url: 'trans/monitor/getAllMonitorTrans.shtml',
-        data: {},
-        success: function (data) {
-        	$("#transNum").text(data);
-        },
-        error: function () {
-            alert("请求失败！请刷新页面重试");
-        },
-        dataType: 'json'
-    });	
+        data:{},
+        success:function (data) {
+            $("#transNum").text(data.data);
+        }
+    });
+
 	/*获取在监控的作业数*/
-	$.ajax({
-        type: 'POST',
+    UtilsJS.AjaxRequest({
         async: false,
         url: 'job/monitor/getAllMonitorJob.shtml',
-        data: {},
-        success: function (data) {
-        	$("#jobNum").text(data);
-        },
-        error: function () {
-            alert("请求失败！请刷新页面重试");
-        },
-        dataType: 'json'
-    });	
+        data:{},
+        success:function (data) {
+            $("#jobNum").text(data.data);
+        }
+    });
 	
 	$.ajax({
         type: 'POST',
@@ -124,6 +113,26 @@ $(document).ready(function () {
         },
         dataType: 'json'
     });
+
+    transMonitorTabel = new UtilsJS.BSTable("transMonitorList", "main/getTransList.shtml", transColunms());
+    transMonitorTabel.init();
+    jobMonitorTabel = new UtilsJS.BSTable("jobMonitorList", "main/getJobList.shtml", jobColunms());
+    jobMonitorTabel.init();
+    function refreshTrans() {
+        transMonitorTabel.refresh();
+    };
+
+    function refreshJobs() {
+        jobMonitorTabel.refresh();
+    };
+
+    $("#refreshTransBtn").on('click',function () {
+        refreshTrans();
+    });
+
+    $("#refreshJobsBtn").on('click', function () {
+        refreshJobs();
+    });
 });
 
 function MonitorTransFormatter(value, row, index){
@@ -148,34 +157,17 @@ function MonitorTransFormatter(value, row, index){
 }; 
 function MonitorJobFormatter(value, row, index){
 	var MonitorJob = "";
-	$.ajax({
-        type: 'POST',
+    UtilsJS.AjaxRequest({
         async: false,
         url: 'job/getJob.shtml',
-        data: {
-            "jobId": value          
+        data:{
+            "jobId": value
         },
-        success: function (data) {
-        	var job = data.data;
-        	MonitorJob = job.jobName;		        	 				        	 
-        },
-        error: function () {
-            alert("系统出现问题，请联系管理员");
-        },
-        dataType: 'json'
+        success:function (data) {
+            var job = data.data;
+            MonitorJob = job.jobName;
+        }
     });
+
 	return MonitorJob;
-}; 
-
-function queryParams(params) {
-	var temp = { limit: 10, offset: params.offset };
-    return temp;
 };
-
-function searchTrans(){
-	$('#transMonitorList').bootstrapTable('refresh', "main/getTransList.shtml");
-}
-
-function searchJobs(){
-	$('#jobMonitorList').bootstrapTable('refresh', "main/getJobList.shtml");
-}

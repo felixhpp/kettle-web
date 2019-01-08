@@ -427,10 +427,48 @@ CREATE TABLE `k_job_step_log` (
 -- View structure for v_k_job
 -- ----------------------------
 DROP VIEW IF EXISTS `v_k_job`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_k_job` AS select `k_job`.`job_id` AS `job_id`,`k_job`.`job_name` AS `job_name`,`k_job`.`job_description` AS `job_description`,`k_job`.`job_type` AS `job_type`,`k_job`.`job_path` AS `job_path`,`k_job`.`job_repository_id` AS `job_repository_id`,`k_job`.`job_quartz` AS `job_quartz`,`k_job`.`job_record` AS `job_record`,`k_job`.`job_log_level` AS `job_log_level`,`k_job`.`job_status` AS `job_status`,`k_job`.`add_time` AS `add_time`,`k_job`.`add_user` AS `add_user`,`k_job`.`edit_time` AS `edit_time`,`k_job`.`edit_user` AS `edit_user`,`k_job`.`del_flag` AS `del_flag`,`k_quartz`.`quartz_description` AS `quartz_description`,`k_quartz`.`quartz_cron` AS `quartz_cron` from (`k_job` join `k_quartz`) where (`k_job`.`job_quartz` = `k_quartz`.`quartz_id`) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_k_job` AS SELECT `k_job`.`job_id` AS `job_id`,
+        `k_job`.`job_name` AS `job_name`,
+        `k_job`.`job_description` AS `job_description`,
+        `k_job`.`job_type` AS `job_type`,
+        `k_job`.`job_path` AS `job_path`,
+        `k_job`.`job_repository_id` AS `job_repository_id`,
+        `k_job`.`job_quartz` AS `job_quartz`,
+        `k_job`.`job_record` AS `job_record`,
+        `k_job`.`job_log_level` AS `job_log_level`,
+        `k_job`.`job_status` AS `job_status`,
+        `k_job`.`add_time` AS `add_time`,
+        `k_job`.`add_user` AS `add_user`,
+        `k_job`.`edit_time` AS `edit_time`,
+        `k_job`.`edit_user` AS `edit_user`,
+        `k_job`.`del_flag` AS `del_flag`,
+         IF(`k_quartz`.`del_flag`=1,`k_quartz`.`quartz_description`,NULL) AS `quartz_description`,
+				 IF(`k_quartz`.`del_flag`=1,`k_quartz`.`quartz_cron`,NULL) AS `quartz_cron`
+FROM (`k_job`
+JOIN `k_quartz`)
+WHERE (`k_job`.`job_quartz` = `k_quartz`.`quartz_id`) ;
 
 -- ----------------------------
 -- View structure for v_k_trans
 -- ----------------------------
 DROP VIEW IF EXISTS `v_k_trans`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_k_trans` AS select `k_trans`.`trans_id` AS `trans_id`,`k_trans`.`trans_name` AS `trans_name`,`k_trans`.`trans_description` AS `trans_description`,`k_trans`.`trans_type` AS `trans_type`,`k_trans`.`trans_path` AS `trans_path`,`k_trans`.`trans_repository_id` AS `trans_repository_id`,`k_trans`.`trans_record` AS `trans_record`,`k_trans`.`trans_log_level` AS `trans_log_level`,`k_trans`.`trans_status` AS `trans_status`,`k_trans`.`add_time` AS `add_time`,`k_trans`.`add_user` AS `add_user`,`k_trans`.`edit_time` AS `edit_time`,`k_trans`.`edit_user` AS `edit_user`,`k_trans`.`del_flag` AS `del_flag`,`k_quartz`.`quartz_description` AS `quartz_description`,`k_quartz`.`quartz_cron` AS `quartz_cron`,`k_trans`.`trans_quartz` AS `trans_quartz` from (`k_trans` join `k_quartz`) where (`k_trans`.`trans_quartz` = `k_quartz`.`quartz_id`) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_k_trans` AS SELECT `k_trans`.`trans_id` AS `trans_id`,
+        `k_trans`.`trans_name` AS `trans_name`,
+        `k_trans`.`trans_description` AS `trans_description`,
+        `k_trans`.`trans_type` AS `trans_type`,
+        `k_trans`.`trans_path` AS `trans_path`,
+        `k_trans`.`trans_repository_id` AS `trans_repository_id`,
+        `k_trans`.`trans_record` AS `trans_record`,
+        `k_trans`.`trans_log_level` AS `trans_log_level`,
+        `k_trans`.`trans_status` AS `trans_status`,
+        `k_trans`.`add_time` AS `add_time`,
+        `k_trans`.`add_user` AS `add_user`,
+        `k_trans`.`edit_time` AS `edit_time`,
+        `k_trans`.`edit_user` AS `edit_user`,
+        `k_trans`.`del_flag` AS `del_flag`,
+         IF(`k_quartz`.`del_flag`=1,`k_quartz`.`quartz_description`,NULL) AS `quartz_description`,
+				 IF(`k_quartz`.`del_flag`=1,`k_quartz`.`quartz_cron`,NULL) AS `quartz_cron`,
+        `k_trans`.`trans_quartz` AS `trans_quartz`
+FROM (`k_trans`
+JOIN `k_quartz`)
+WHERE (`k_trans`.`trans_quartz` = `k_quartz`.`quartz_id`) ;
